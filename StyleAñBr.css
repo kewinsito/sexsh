@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    /* Fondo blanco */
+    color: #ee1858;
+}
+header {
+    background-color: #000;
+    color: #ee1858;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: end; /* Cambiado para centrar el contenido principal */
+    align-items: end;
+    text-align: end;
+}
+header button{
+    background-color: #ee1858;
+    color: white;
+    border: 2px solid #ee1858;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+header button:hover{
+    background-color: #ee1858;
+  border: 2px solid #ee1858;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+header button:focus{
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(207, 155, 218, 0.5);
+}
+header button:active{
+    background-color: #d08fdb;
+    border: 2px solid #d08fdb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor del logo */
+.logo {
+    display: flex; /* Habilita Flexbox */
+    justify-content: center; /* Centra el logo horizontalmente */
+    align-items: center; /* Centra el logo verticalmente */
+    background-color: #000;
+}
+
+/* Estilo del logo */
+.logo img {
+    max-width: 160px; /* Tamaño del logo */
+    height: auto; /* Mantiene la relación de aspecto */
+}
+.logo a{
+    display: inline-block; /* Asegura que la animación se aplique correctamente */
+    transition: transform 0.3s ease; /* Animación al pasar el cursor */
+}
+.logo a:hover{
+    transform: scale(1.2);
+}
+main h2{
+    font-size: 50px;
+}
+main p{
+    font-size: 25px;
+    color: #000;
+
+}
+main h2,p {
+    text-align: center;
+}
+/*estilo para main*/
+.product-list-container {
+    background-size: cover;
+    width: 100%; /* Asegura que el div se centre correctamente */
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .product {
+    text-align: center;
+    color: #333;
+  }
+  
+  .product-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-item:last-child {
+    border-bottom: none;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-btn, .delete-btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-btn {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-btn {
+    background-color: #FF4B5C;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background-color: #b33a3f;
+  }

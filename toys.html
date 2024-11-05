@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="consolador.jfif" type="image/icon type">
+    <title>Sex Shop</title>
+    <link rel="stylesheet" href="styletoys.css">
+</head>
+
+<body>
+    <script src="script.js"></script>
+    <!-- Header con imagen como logo y búsqueda -->
+    <div class="logo">
+        <a href="index.html">
+        <img src="loguito.jpeg" alt="Logo">
+    </a>
+    </div>
+    <header>
+
+        <div class="icons">
+            <input type="search" id="searchInput" placeholder="Buscar productos..." alt="">
+            <a href="javascript:void(0);" id="searchIcon">
+                <!-- Cambia href para evitar recarga -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+        </svg>
+            </a>
+            <a href="InicioSesion.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/>
+    </svg>
+</a>
+            <a href="Carrito.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64l0 48-128 0 0-48zm-48 48l-64 0c-26.5 0-48 21.5-48 48L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-208c0-26.5-21.5-48-48-48l-64 0 0-48C336 50.1 285.9 0 224 0S112 50.1 112 112l0 48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/>
+    </svg>
+</a>
+        </div>
+    </header>
+
+    <!-- Menú -->
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="Novedades.html">Novedades</a>
+        <a href="toys.html">Sex Shop</a>
+        <a href="Lenceria.html">Lencería</a>
+        <a href="Conocenos.html">Conócenos</a>
+    </nav>
+    <hr>
+    <div class="titulo">
+        <h2>Todo en Juguetes Eroticos y más</h2>
+    </div>
+
+    <nav class="select-container">
+        <label for="product-filter">Filtrar por:</label>
+        <div class="custom-select">
+            <select id="product-filter" onchange="filterProducts(this.value)">
+            <option value="all">Todos los productos</option>
+            <option value="bondage">Bondage</option>
+            <option value="consoladores">Consoladores/Dildos</option>
+            <option value="lubricantes">Lubricantes/Vigorizantes</option>
+            <option value="lenceria">Lencería</option>
+            <option value="plugs">Plugs</option>
+            <option value="vibradores">Vibradores</option>
+        </select>
+        </div>
+    </nav>
+
+    
+    <!-- Contenido principal -->
+    <main>
+        <!-- BONDAGE -->
+        <div class="product-list">
+            <div class="container">
+                <div class="product bondage">
+                    <a href="VisualizacionProducto.html">
+                <img src="https://github.com/kewinsito/pictur/blob/main/PhotoRoom-20241103_005721.png?raw=true" 
+                 alt="MultiOrgasmos" href="VisualizacionProducto.html">
+                </a>
+                    <h3>Kit Fetiche Negro 4pzs</h3>
+                    <p class="price">$250.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="https://github.com/kewinsito/pictur/blob/main/bg850.png?raw=true" alt="Bondage">
+                    <h3>Set Bondage 8pzs</h3>
+                    <p class="price">$850.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="PhotoRoom-20241101_202640.png" alt="arnes">
+                    <h3>Arnes Hueco</h3>
+                    <p class="price">$280.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="PhotoRoom-20241101_203305.png" alt="Bondage bola">
+                    <h3>Silenciador Bola</h3>
+                    <p class="price">$140.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="PhotoRoom-20241101_203434.png" alt="Bondage latigo">
+                    <h3>Latigo Mini 40cm</h3>
+                    <p class="price">$240.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="90.png" alt="Bondage pluma">
+                    <h3>Pluma</h3>
+                    <p class="price">$90.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="PhotoRoom-20241101_213411.png" alt="arnes h">
+                    <h3>Arnes Hermes </h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product bondage">
+                    <img src="PhotoRoom-20241101_213533.png" alt="Bondage esposas">
+                    <h3>Esposas Andrea</h3>
+                    <p class="price">$480.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product consoladores">
+                    <img src="c400.png" alt="dildo doble">
+                    <h3>Dildo Doble Cabeza de gel 25cm * 3cm</h3>
+                    <p class="price">$400.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="160dd.png" alt="dildo mini">
+                    <h3>Mini Dildo anal 11.2cm * 2.5cm</h3>
+                    <p class="price">$160.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="chupon.png" alt="dildo">
+                    <h3>Dildo Consolador con chupón</h3>
+                    <p class="price">$180.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="750.png" alt="dildo mano">
+                    <h3>Consolador Mano silicón suave y flexible</h3>
+                    <p class="price">$180.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product consoladores">
+                    <img src="790.png" alt="dildo y arnes">
+                    <h3> Set de Dildo con chupón y Arnés</h3>
+                    <p class="price">$790.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="PhotoRoom-20241101_190731.png" alt="dildo eya">
+                    <h3>Consolador con Eyaculador</h3>
+                    <p class="price">$000.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="440.png" alt="consolador n">
+                    <h3>Consolador</h3>
+                    <p class="price">$440.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="colores.png" alt="consolador ch">
+                    <h3>Consolador con chupón colores</h3>
+                    <p class="price">$480.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- LUBR Y VIGORISANTES -->
+                <div class="product consoladores">
+                    <img src="PhotoRoom-20241101_190550.png" alt="Consolador">
+                    <h3>Consolador control remoto</h3>
+                    <p class="price">$590.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="PhotoRoom-20241101_201140.png" alt="consolador">
+                    <h3>Consolador Ares</h3>
+                    <p class="price">$490.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="" alt="consolador">
+                    <h3>Consolador Jumbo</h3>
+                    <p class="price">$690.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="" alt="consolador">
+                    <h3>Consolador</h3>
+                    <p class="price">$550.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- fundas consoladoras -->
+                <div class="product consoladores">
+                    <img src="fund240.png" alt="vigorisante">
+                    <h3>Funda Engrosadora</h3>
+                    <p class="price">$240.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product consoladores">
+                    <img src="v240.png" alt="Lubricante">
+                    <h3>Funda alargadora</h3>
+                    <p class="price">$240.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <!-- LUBR Y VIGORISANTES -->
+                <div class="product lubricantes">
+                    <img src="190...png" alt="vigorisante">
+                    <h3>Engrosador masculino Hot Sex</h3>
+                    <p class="price">$190.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="200.png" alt="Lubricante">
+                    <h3>Lubricante Hemp Sativa</h3>
+                    <p class="price">$200.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="wi160.png" alt="Lubricante m">
+                    <h3>Gel Lubricante Multiorgásmico</h3>
+                    <p class="price">$160.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="550o.png" alt="lubricante d">
+                    <h3>Lubricante Desensilizante anal</h3>
+                    <p class="price">$550.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product lubricantes">
+                    <a href="VisualizacionProducto.html">
+                    <img src="200k.png" 
+                     alt="licricante dd" href="VisualizacionProducto.html">
+                    </a>
+                    <h3>Desensibilizador anal Sueños Húmedos</h3>
+                    <p class="price">$200.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="150.png" alt="Lubricante anal">
+                    <h3>Sensibilizador Pezones Sueños Húmedos</h3>
+                    <p class="price">$150.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="Tt150.png" alt="Euforia">
+                    <h3>Prolongador Masculino</h3>
+                    <p class="price">c$150.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="PhotoRoom-20241101_190106.png" alt="Black Power">
+                    <h3>Baño de Burbujas </h3>
+                    <p class="price">$140.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- lubg-->
+                <div class="product lubricantes">
+                    <img src="180.png" alt="Aceite">
+                    <h3>Aceite para Masajes térmico-comestible</h3>
+                    <p class="price">$180.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="210i.png" alt="Lubricante anal">
+                    <h3>Lubricante intimo 4 en 1 efecto térmico</h3>
+                    <p class="price">$210.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="PhotoRoom-20241101_211438.png" alt="gel">
+                    <h3>Gel Vaginal estrechador </h3>
+                    <p class="price">$250.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="240bb.png" alt="lubricante">
+                    <h3>Lubricante de silicón waterproof</h3>
+                    <p class="price">$240.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product lubricantes">
+                    <img src="PhotoRoom-20241101_195009.png" alt="lubricante">
+                    <h3>Lubricante sensibilizador Electric feel</h3>
+                    <p class="price">$400.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="PhotoRoom-20241101_195237.png" alt="Lubricante comestible">
+                    <h3>Lubricante Comestible Love is Love</h3>
+                    <p class="price">$250.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="250.png" alt="lubricante">
+                    <h3>Lubricante Multiorgásmico sabor fresa</h3>
+                    <p class="price">$250.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="280b.png" alt="Black Power">
+                    <h3>Lubricante simulador</h3>
+                    <p class="price">$280.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="120.png" alt="Desensibilizador">
+                    <h3> Desensibilizador Oral sabor fresa </h3>
+                    <p class="price">$120.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="PhotoRoom-20241101_211354.png" alt="Desensibilizador">
+                    <h3>Desensibilizador Oral sabor menta</h3>
+                    <p class="price">$120.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="PhotoRoom-20241101_211438.png" alt="Desensibilizador">
+                    <h3>Desensibilizador Oral sabor mora</h3>
+                    <p class="price">$120.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="h150.png" alt="Black Power">
+                    <h3>Lubricante Retardador sabor chocolate</h3>
+                    <p class="price">$150.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- Y VIGORISANTES -->
+                <div class="product lubricantes">
+                    <img src="480.png" alt="MultiOrgasmos">
+                    <h3>Vigorizante para Hombre 60 caps</h3>
+                    <p class="price">$480.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lubricantes">
+                    <img src="480..png" alt="Lubricante anal">
+                    <h3>Vigorizante femenino 60 caps</h3>
+                    <p class="price">$480.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product lenceria">
+                    <img src="PhotoRoom-20241101_201911.png" 
+                         alt="MultiOrgasmos">
+                    <h3>Conjunto de lencería azul</h3>
+                    <p class="price">$390.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="PhotoRoom-20241101_202449.png" alt="Lubricante anal">
+                    <h3>Conjunto lencería rosa</h3>
+                    <p class="price">$390.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="PhotoRoom-20241101_202032.png" alt="Euforia">
+                    <h3>Conjunto Lencería negro</h3>
+                    <p class="price">c$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="PhotoRoom-20241101_202201.png" alt="Black Power">
+                    <h3>Conjunto Lnecería Negro/Rosa</h3>
+                    <p class="price">$490.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- lenc-->
+                <div class="product lenceria">
+                    <img src="PhotoRoom-20241101_202547.png" alt="MultiOrgasmos">
+                    <h3>Body Corset Negro</h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="PhotoRoom-20241101_203635.png" alt="Lubricante anal">
+                    <h3>Conjunto Lencería tiras Negro</h3>
+                    <p class="price">$210.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0011.jpg" alt="Euforia">
+                    <h3>Conjunto Lencería Rojo </h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0022.jpg" alt="Black Power">
+                    <h3>Enterizo Mono Lencería Negro</h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- lenceria -->
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0029.jpg" alt="MultiOrgasmos">
+                    <h3>Conjunto Lencería Verde Floral</h3>
+                    <p class="price">$400.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0063.jpg" alt="Lubricante anal">
+                    <h3>Enterizo Mono Lencería Blanco</h3>
+                    <p class="price">$250.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0079.jpg" alt="Black Power">
+                    <h3>Conjunto Lencería Rosa</h3>
+                    <p class="price">$580.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0088.jpg" alt="Desensibilizador">
+                    <h3> Cordinado Negro </h3>
+                    <p class="price">$120.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- lenceriar -->
+                <div class="product lenceria">
+                    <img src="IMG-20241101-WA0007.jpg" alt="Desensibilizador">
+                    <h3> Disfraz Enfermera </h3>
+                    <p class="price">$120.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+
+
+                <div class="product plugs">
+                    <img src="PhotoRoom-20241101_185153.png"  alt="MultiOrgasmos" href="VisualizacionProducto.html">
+                            </a>
+                    <h3>Plug Joya</h3>
+                    <p class="price">$180.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product plugs">
+                    <img src="pp290.png" alt="Bondage">
+                    <h3>Plug Colita de Conejo</h3>
+                    <p class="price">$290.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product plugs">
+                    <img src="440pp.png" alt="arnes">
+                    <h3>Plug Colita Zorro</h3>
+                    <p class="price">$280.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product plugs">
+                    <img src="PhotoRoom-20241101_203305.png" alt="Bondage bola">
+                    <h3>Silenciador Bola</h3>
+                    <p class="price">$140.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product plugs">
+                    <img src="P520.png" alt="Bondage latigo">
+                    <h3>Plug Colita y Orejitas Gato</h3>
+                    <p class="price">$520.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product plugs">
+                    <img src="pp195.png" alt="Bondage pluma">
+                    <h3>Bolitas anales 26cm * 2.5cm</h3>
+                    <p class="price">$195.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product plugs">
+                    <img src="210pp.png" alt="arnes h">
+                    <h3>Plug anal de gel 11.5cm* 2.8cm </h3>
+                    <p class="price">$210.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product plugs">
+                    <img src="" alt="Bondage esposas">
+                    <h3>Plug otro</h3>
+                    <p class="price">$480.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- vibradores -->
+                <div class="product vibradores">
+                    <img src="PhotoRoom-20241101_183613.png" alt="dildo doble">
+                    <h3>Vibrador y succionador</h3>
+                    <p class="price">$1250.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="1290.png" alt="dildo mini">
+                    <h3>Arnes con doble vibrador y control </h3>
+                    <p class="price">$1290.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="290.png" alt="dildo">
+                    <h3>Vibrador Gladme</h3>
+                    <p class="price">$290.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="b690.png" alt="dildo mano">
+                    <h3>Vibrador rosa</h3>
+                    <p class="price">$180.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="PhotoRoom-20241101_201003.png" alt="dildo y arnes">
+                    <h3> Vibrador y succionador</h3>
+                    <p class="price">$1290.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="590.png" alt="dildo eya">
+                    <h3>Bolitas Vibradoras Set 2</h3>
+                    <p class="price">$590.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="a690.png" alt="consolador n">
+                    <h3>Vibrador a control</h3>
+                    <p class="price">$690.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="590...png" alt="consolador ch">
+                    <h3>Vibrador Multiusos recargable</h3>
+                    <p class="price">$590.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- vibradores -->
+                <div class="product vibradores">
+                    <img src="1590iii.png" alt="vigorisante">
+                    <h3>Vibrador doble y lenguita clitoris</h3>
+                    <p class="price">$1590.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="PhotoRoom-20241101_201614.png" alt="Lubricante">
+                    <h3>Vibrador Remoto Amanraya</h3>
+                    <p class="price">$1590.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="U790.png" alt="Lubricante m">
+                    <h3>Vibrador Brocha</h3>
+                    <p class="price">$790.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="180kkk.png" alt="lubricante d">
+                    <h3>Vibrador Balita</h3>
+                    <p class="price">$180.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+
+                <div class="product vibradores">
+                    <img src="hhh690.png" alt="dildo y arnes">
+                    <h3> Vibrador 360</h3>
+                    <p class="price">$690.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="vv790.png" alt="dildo eya">
+                    <h3>Varita Vibradora Eva</h3>
+                    <p class="price">$790.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="s1050.png" alt="consolador n">
+                    <h3>Vibrador inalámbrico</h3>
+                    <p class="price">$1050.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="430vv.png" alt="consolador ch">
+                    <h3>Vibrador con texturas</h3>
+                    <p class="price">$430.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- vibradores -->
+                <div class="product vibradores">
+                    <img src="450kkk.png" alt="vigorisante">
+                    <h3>Vibrador de gel</h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="415.png" alt="Lubricante">
+                    <h3>Vibrador Crystal Vibe</h3>
+                    <p class="price">$415.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="vv600.png" alt="Lubricante m">
+                    <h3>Lenguita Pig</h3>
+                    <p class="price">$600.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="vv450.png" alt="lubricante d">
+                    <h3>Funda Vibradora</h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="PhotoRoom-20241101_214255.png" alt="dildo y arnes">
+                    <h3> Succionador de clitoris</h3>
+                    <p class="price">$450.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="890cc.png" alt="dildo eya">
+                    <h3>Succionador inalambricos</h3>
+                    <p class="price">$890.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="a690.png" alt="consolador n">
+                    <h3>Vibrador a control</h3>
+                    <p class="price">$690.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="PhotoRoom-20241101_190550.png" alt="consolador ch">
+                    <h3>Vibrador Consolador remoto</h3>
+                    <p class="price">$1290.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <!-- vibradores -->
+                <div class="product vibradores">
+                    <img src="690..png" alt="vigorisante">
+                    <h3>Vagina Electric Cola Cup</h3>
+                    <p class="price">$690.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+                <div class="product vibradores">
+                    <img src="f790.png" alt="Lubricante">
+                    <h3>Vagina Cup</h3>
+                    <p class="price">$790.000</p>
+                    <button class="add-to-cart">Añadir a Carrito</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="pagination">
+        <a href="javascript:void(0);" class="next" id="nextButton">Siguiente &raquo;</a>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-section-left">
+            <h2>¿Necesitas información adicional?</h2>
+            <a href="https://api.whatsapp.com/send/?phone=6271063016&text&type=phone_number&app_absent=0">Comunícate vía WhatsApp</a>
+        </div>
+        <div class="footer-section-right">
+            <h2>¿Deseas visitar nuestra tienda física?</h2>
+            <a href="https://www.google.com/maps/dir//33800,+Centro,+33800+Hidalgo+del+Parral,+Chih./@26.9331074,-105.7465811,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x86945184794cce79:0x21a1ce05f4e51042!2m2!1d-105.6641796!2d26.9331313?entry=ttu&g_ep=EgoyMDI0MDkyNS4wIKXMDSoASAFQAw%3D%3D">Ubicación de tienda</a>
+        </div>
+        <div class="Icons">
+            <a href="https://www.facebook.com/p/SexShop-Seduction-100064192802511/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/></svg>
+        </a>
+            <a href="https://www.instagram.com/_sex_shop_seduction_/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+        </a>
+        </div>
+        <p class="copyright">© 2024, <a href="https://www.facebook.com/p/SexShop-Seduction-100064192802511/">Sex Shop Seduction</a> by <a href="https://www.facebook.com/abigail.aguirre.98837399">@Abigail Aguirre</a></p>
+    </footer>
+
+
+    <script>
+        // Filtrado por categoría
+        function filterProducts(category) {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product-list .product');
+
+            products.forEach(product => {
+                const productName = product.querySelector('h3').textContent.toLowerCase();
+                const matchesCategory = (category === 'all' || product.classList.contains(category));
+                const matchesSearch = productName.includes(searchInput);
+
+                if (matchesCategory && matchesSearch) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Búsqueda de productos
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+
+        // Evento de búsqueda al escribir
+        searchInput.addEventListener('input', function() {
+            filterProducts(document.getElementById('product-filter').value);
+        });
+
+        // Evento de búsqueda al hacer clic en el icono
+        searchIcon.addEventListener('click', function() {
+            filterProducts(document.getElementById('product-filter').value);
+        });
+    </script>
+
+</body>
+
+</html>

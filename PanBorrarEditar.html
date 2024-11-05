@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="StyleAñBr.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="index.html">
+            <img src="sxxx.jpeg" alt="Logo">
+        </a>
+    </div>
+    <header>
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
+
+      <script>
+          // Definir la función directamente en el HTML
+          function cerrarSesion() {
+              window.location.href = 'index.html';
+          }
+      </script>
+    </header>
+    <main>
+        <h2>Cambia algo a<br>Novedades</h2>
+        <p>Los cambios no siempre son malos</p>
+        <hr>
+        <div class="product-list-container">
+            <h2 class="product">Listado de Productos</h2>
+            <ul class="product-list">
+              <li class="product-item">
+                <span>Producto 1 - $10.00</span>
+                <div class="buttons">
+                  <button class="edit-btn">Modificar</button>
+                  <button class="delete-btn">Borrar</button>
+                </div>
+              </li>
+              <li class="product-item">
+                <span>Producto 2 - $20.00</span>
+                <div class="buttons">
+                  <button class="edit-btn">Modificar</button>
+                  <button class="delete-btn">Borrar</button>
+                </div>
+              </li>
+              <!-- Más productos -->
+            </ul>
+          </div>
+    </main>
+    <script src="ruta/al/archivo.js"></script>
+</body>
+</html>

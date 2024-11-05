@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    /* Fondo blanco */
+    color: #ee1858;
+}
+header {
+    background-color: #000;
+    color: #ee1858;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: end; /* Cambiado para centrar el contenido principal */
+    align-items: end;
+    text-align: end;
+}
+header button{
+    background-color: #ee1858;
+    color: white;
+    border: 2px solid #ee1858;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+header button:hover{
+    background-color: #ee1858;
+  border: 2px solid #ee1858;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+header button:focus{
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(207, 155, 218, 0.5);
+}
+header button:active{
+    background-color: #d08fdb;
+    border: 2px solid #d08fdb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Contenedor del logo */
+.logo {
+    display: flex; /* Habilita Flexbox */
+    justify-content: center; /* Centra el logo horizontalmente */
+    align-items: center; /* Centra el logo verticalmente */
+    background-color: #000;
+}
+
+/* Estilo del logo */
+.logo img {
+    max-width: 160px; /* Tamaño del logo */
+    height: auto; /* Mantiene la relación de aspecto */
+}
+.logo a{
+    display: inline-block; /* Asegura que la animación se aplique correctamente */
+    transition: transform 0.3s ease; /* Animación al pasar el cursor */
+}
+.logo a:hover{
+    transform: scale(1.2);
+}
+main h2{
+    font-size: 50px;
+}
+main p{
+    font-size: 25px;
+    color: #000;
+
+}
+main h2,p {
+    text-align: center;
+}
+/*estilo para main*/
+.añadir, .borMod {
+    background-size: cover; /* Ajusta la imagen para cubrir el área completa */
+    height: 310px;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    background-position: center; /* Centra la imagen en el div */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    display: flex;
+    flex-direction: column; /* Hace que los elementos se dispongan en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    font-size: 20px;
+}
+.añadir{
+    background-image: url("https://th.bing.com/th/id/R.bb908c863151b430bd3a52205f80b0f2?rik=pbr2OyNwXKURDw&pid=ImgRaw&r=0");
+}
+.borMod{
+    background-image: url('https://www.chio-lecca.edu.pe/cdn/shop/files/lenceria_chio_lecca_9c56c573-303c-4f4e-a7b2-2121a9bf79bc.jpg?v=1687566740&width=1200');
+}
+
+/* Estilos comunes para títulos */
+.añadir-title, .borMod-title {
+    font-size: 48px;
+    color: #d20b6e;
+    margin-bottom: 10px;
+}
+
+/* Estilos comunes para subtítulos */
+.añadir-subtitle, .borMod-subtitle {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-align: center; /* Asegura que el texto esté centrado */
+    line-height: 1.5; /* Establece un interlineado consistente */
+    font-weight: normal; /* Asegura que el grosor de la fuente sea el mismo */
+}
+
+/* Estilos comunes para botones */
+.añadir-button, .borMod-button {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #333;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    background-image: linear-gradient(145deg, #000, #333);
+}
+
+/* Estilos comunes para botones en estado hover */
+.añadir-button:hover, .borMod-button:hover {
+    background-color: #333;
+    background-image: linear-gradient(145deg, #333, #000);
+    color: #ff007f;
+    border-color: #ff007f;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+}
+
+/* Estilos comunes para botones en estado activo */
+.añadir-button:active, .borMod-button:active {
+    transform: scale(0.98);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
