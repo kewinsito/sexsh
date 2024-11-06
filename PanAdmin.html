@@ -13,7 +13,7 @@
         </a>
     </div>
     <header>
-        <button>Cerrar sesion</button>
+        <button onclick="logout()">Cerrar sesion</button>
     </header>
     <main>
         <h2>Bienvenido a administrador Sex Shop <br>Seduction</h2>
@@ -31,5 +31,10 @@
             <button class="borMod-button" onclick="location.href='PanBorrarEditar.html'">Ir</button>
         </div>
     </main>
+    
 </body>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="./firebase/firebase.js"></script>
 </html>

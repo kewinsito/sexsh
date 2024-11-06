@@ -1,9 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCHMEaDhtxixycfamuEMC64t6Uy1GA5xoo",
@@ -14,6 +8,35 @@ const firebaseConfig = {
   appId: "1:604810062898:web:f0f41ce212544c5da3a02b"
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
+// Inicialización de Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+//inicio sesion
+const loginForm = document.getElementById('signin-form');
+const pushMessage = document.getElementById('pushMessage');
+function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+            // Mensaje de éxito
+        pushMessage.innerText = '¡Has iniciado sesión con éxito!';
+        pushMessage.style.display = 'block';
+
+        // Redirigir después de un breve retraso
+        setTimeout(() => {
+            pushMessage.style.display = 'none';
+            window.location.href = 'PanAdmin.html';
+        }, 2000);
+        })
+        .catch(error => alert(error.message));
+}
+function logout() {
+  auth.signOut()
+      .then(() => {
+        window.location.href = 'index.html';
+      })
+      .catch(error => alert(error.message));
+}

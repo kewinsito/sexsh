@@ -1,6 +1,3 @@
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { auth } from './firebase/firebase.js';
-
 const signinform = document.querySelector('#signin-form');
 const pushMessage = document.getElementById('pushMessage');
 
