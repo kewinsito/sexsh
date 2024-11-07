@@ -158,6 +158,12 @@
     </div>    
     </main>
     </div>
+
+    <div class="pagination">
+        <a href="javascript:void(0);" class="prev" id="prevButton">&laquo; Anterior</a>
+        <a href="javascript:void(0);" class="next" id="nextButton">Siguiente &raquo;</a>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-section-left">
@@ -211,6 +217,88 @@
         searchIcon.addEventListener('click', function() {
             filterProducts(document.getElementById('product-filter').value);
         });
+
+
+
+
+// Seleccionamos todos los productos ya existentes en el HTML
+const productos = document.querySelectorAll('.product-list .container .product');
+
+const productosPorPagina = 16;  // Número de productos a mostrar por vez
+let paginaActual = 0;  // Página inicial
+
+// Función para cargar los productos en la página
+function cargarProductos() {
+    // Ocultar todos los productos
+    productos.forEach(producto => {
+        producto.style.display = 'none';
+    });
+
+    // Mostrar solo los productos correspondientes a la página actual
+    const startIndex = paginaActual * productosPorPagina;
+    const endIndex = startIndex + productosPorPagina;
+
+    // Mostramos los productos de la página actual
+    for (let i = startIndex; i < endIndex && i < productos.length; i++) {
+        productos[i].style.display = 'block';
+    }
+}
+
+// Función para manejar el clic en "Siguiente"
+function cargarSiguiente() {
+    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+
+    // Si aún hay más productos por cargar, incrementamos la página actual
+    if (paginaActual < totalPaginas - 1) {
+        paginaActual++;
+        cargarProductos();
+        document.getElementById('prevButton').style.display = 'inline'; // Mostrar "Anterior"
+    }
+
+    // Si ya no hay más productos, ocultamos el botón "Siguiente"
+    if (paginaActual === totalPaginas - 1) {
+        document.getElementById('nextButton').style.display = 'none';
+    }
+}
+
+// Función para manejar el clic en "Anterior"
+function cargarAnterior() {
+    // Si estamos en una página mayor a 0, retrocedemos
+    if (paginaActual > 0) {
+        paginaActual--;
+        cargarProductos();
+    }
+
+    // Si estamos en la primera página, ocultamos el botón "Anterior"
+    if (paginaActual === 0) {
+        document.getElementById('prevButton').style.display = 'none';
+    }
+
+    // Siempre mostramos el botón "Siguiente" cuando retrocedemos
+    document.getElementById('nextButton').style.display = 'inline';
+}
+
+// Cargar los primeros productos al inicio
+cargarProductos();
+
+// Configurar el evento para el botón "Siguiente"
+document.getElementById('nextButton').addEventListener('click', cargarSiguiente);
+
+// Configurar el evento para el botón "Anterior"
+document.getElementById('prevButton').addEventListener('click', cargarAnterior);
+
+// Inicialmente, ocultamos el botón "Anterior" porque estamos en la primera página
+document.getElementById('prevButton').style.display = 'none';
+
+
+
+ 
+
+
+
+
+
+
     </script>
 </body>
 

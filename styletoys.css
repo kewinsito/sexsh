@@ -248,8 +248,8 @@ footer a {
 }
 
 .container .product:hover .add-to-cart {
-    background-color: #f531e5; /* Color de fondo del botón al pasar el cursor */
-    color: #e2d8d8; /* Color del texto del botón al pasar el cursor */
+    background-color: #e4549c; /* Color de fondo del botón al pasar el cursor */
+    color: #b5b1b1; /* Color del texto del botón al pasar el cursor */
     border-color: #e90c7b; /* Color del borde del botón */
 }
 
@@ -419,16 +419,16 @@ footer a {
 
 /* Active page */
 .pagination a.active {
-    background-color: #f400a1;
+    background-color: #e90c7b;
     color: white;
-    border-color: #f400a1;
+    border-color:#e90c7b;
 }
 
 /* Hover effect */
 .pagination a:hover {
-    background-color: #ff00ff;
+    background-color: #e90c7b;
     color: white;
-    border-color: #ff00ff;
+    border-color: #e90c7b;
 }
 
 /* Previous and Next buttons */
@@ -439,7 +439,7 @@ footer a {
 
 /* Hover effect for Previous and Next */
 .pagination a.prev:hover, .pagination a.next:hover {
-    background-color: #ff00ff;
+    background-color:#e90c7b;
     color: white;
 }
 
