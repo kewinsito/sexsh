@@ -17,3 +17,4 @@ function toggleRegister() {
     document.getElementById('loginForm').style.display = 'none'; // Ocultar formulario de inicio de sesión
     document.querySelector('.auth-box h2').innerText = 'Iniciar Sesión'; // Cambiar el título de inicio de sesión
 }
+
