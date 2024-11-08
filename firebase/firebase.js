@@ -21,7 +21,6 @@ function login() {
     const password = document.getElementById('loginPassword').value;
     auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-          console.log("pase por login")
             // Mensaje de éxito
         pushMessage.innerText = '¡Has iniciado sesión con éxito!';
         pushMessage.style.display = 'block';
