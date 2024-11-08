@@ -15,6 +15,7 @@ const db = firebase.firestore();
 
 //inicio sesion
 const loginForm = document.getElementById('signin-form');
+const productForm = document.getElementById('product-form');
 const pushMessage = document.getElementById('pushMessage');
 function login() {
     const email = document.getElementById('loginEmail').value;
@@ -39,4 +40,17 @@ function logout() {
         window.location.href = 'index.html';
       })
       .catch(error => alert(error.message));
+}
+function añadir(){
+  const UrlProduct = document.getElementById('product-image').value;
+  const nameProduct = document.getElementById('product-name').value;
+  const precioProduct = document.getElementById('product-price').value;
+        db.collection('Novedades').add({ UrlProduct,nameProduct,precioProduct })
+            .then(docRef => {
+                UrlProduct = '',
+                nameProduct ='',
+                precioProduct ='';
+            })
+            .catch(error => alert(error.message));
+
 }

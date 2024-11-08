@@ -9,7 +9,7 @@
 <body>
     <div class="logo">
         <a href="index.html">
-            <img src="sxxx.jpeg" alt="Logo">
+            <img src="loguito.jpeg" alt="Logo">
         </a>
     </div>
     <header>
@@ -27,10 +27,9 @@
         <p>Solo tu puedes alcanzar tus metas</p>
         <hr>
         <div class="form-container">
-            <form id="product-form">
               <h2 class="h2form">Subir Producto</h2>
-              <label for="product-image">Imagen del Producto:</label>
-              <input type="file" id="product-image" name="product-image" accept="image/*" required>
+              <label for="product-image">Url del Producto:</label>
+              <input type="url" id="product-image" name="product-image" required>
               
               <label for="product-name">Nombre del Producto:</label>
               <input type="text" id="product-name" name="product-name" required>
@@ -38,10 +37,12 @@
               <label for="product-price">Precio:</label>
               <input type="number" id="product-price" name="product-price" required>
               
-              <button class="buttonform" type="submit">Guardar</button>
-            </form>
+              <button class="buttonform" onclick="añadir()">Guardar</button>
           </div>
     </main>
-    <script src="ruta/al/archivo.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="./firebase/firebase.js"></script>
 </body>
 </html>

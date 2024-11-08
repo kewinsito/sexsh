@@ -6,7 +6,6 @@
             background-color: #121212;
             color: #fff;
         }
-
         /* Contenedor principal */
         .auth-container {
             display: flex;
@@ -118,4 +117,23 @@
         /* Estilos para el formulario de inicio de sesión */
         .login-form {
             display: none; /* Oculto por defecto */
+        }
+        .logo {
+            display: flex; /* Habilita Flexbox */
+            justify-content: center; /* Centra el logo horizontalmente */
+            align-items: center; /* Centra el logo verticalmente */
+            background-color: #000;
+        }
+        
+        /* Estilo del logo */
+        .logo img {
+            max-width: 80px; /* Tamaño del logo */
+            height: auto; /* Mantiene la relación de aspecto */
+        }
+        .logo a{
+            display: inline-block; /* Asegura que la animación se aplique correctamente */
+            transition: transform 0.3s ease; /* Animación al pasar el cursor */
+        }
+        .logo a:hover{
+            transform: scale(1.2);
         }

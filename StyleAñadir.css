@@ -100,7 +100,7 @@ main h2,p {
   
   input[type="text"],
   input[type="number"],
-  input[type="file"] {
+  input[type="url"] {
     width: 100%;
     padding: 0.5em;
     margin-top: 0.5em;
