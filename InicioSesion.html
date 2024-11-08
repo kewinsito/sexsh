@@ -21,9 +21,9 @@
                 <form id="signin-form">
                 <input type="email" placeholder="Correo electrónico" id="loginEmail">
                 <input type="password" placeholder="Contraseña" id="loginPassword">
-                <button class="auth-button" onclick="login()" id="iniciosesionbotton" type="submit">Iniciar Sesión</button>
+                <button class="auth-button" onclick="login()" id="iniciosesionbotton">Iniciar Sesión</button>
                 </form>
-                <p>¿No tienes una cuenta? <a href="#" onclick="toggleRegister()">Regístrate</a></p>
+                <p>¿No tienes una cuenta? <a href="" onclick="toggleRegister()">Regístrate</a></p>
             </div>
         </div>
         <div class="push-message" id="pushMessage">¡Registrado con éxito!</div>
@@ -31,7 +31,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="./firebase/firebase.js"></script>
     <script src="scriptsesion.js"></script>
+    <script src="./firebase/firebase.js"></script>
+    
 </body>
 </html>

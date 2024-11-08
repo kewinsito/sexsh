@@ -21,6 +21,7 @@ function login() {
     const password = document.getElementById('loginPassword').value;
     auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
+          console.log("pase por login")
             // Mensaje de éxito
         pushMessage.innerText = '¡Has iniciado sesión con éxito!';
         pushMessage.style.display = 'block';
@@ -29,7 +30,7 @@ function login() {
         setTimeout(() => {
             pushMessage.style.display = 'none';
             window.location.href = 'PanAdmin.html';
-        }, 2000);
+        }, 1000);
         })
         .catch(error => alert(error.message));
 }
