@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <script src="script.js"></script>
+    
     <!-- Header con imagen como logo y búsqueda -->
     <div class="logo">
         <a href="index.html">
@@ -81,7 +81,7 @@
                 </a>
                     <h3>Kit Fetiche Negro 4pzs</h3>
                     <p class="price">$250.000</p>
-                    <button class="add-to-cart">Añadir a Carrito</button>
+                    <button class="add-to-cart" onclick="añadirCarritoSS('kitFeticheNegro')" >Añadir a Carrito</button>
                 </div>
                 <div class="product bondage">
                     <img src="https://github.com/kewinsito/pictur/blob/main/bg850.png?raw=true" alt="Bondage">
@@ -779,7 +779,10 @@ document.getElementById('prevButton').style.display = 'none';
         
 
     </script>
-
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="./firebase/firebase.js"></script>
 </body>
 
 </html>

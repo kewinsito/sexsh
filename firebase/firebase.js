@@ -170,38 +170,90 @@ function updateTask(id) {
 }
 // Función para añadir o actualizar un producto en el carrito
 function addProductoCarrito(productoId) {
-  // Referencia a la colección 'carrito' en Firestore
-  const carritoRef = firebase.firestore().collection('carrito');
+    // Verificar si el usuario está autenticado
+    const user = firebase.auth().currentUser;
 
-  // Buscar si el producto ya existe en el carrito
-  carritoRef.where('productoId', '==', productoId).get()
-      .then((querySnapshot) => {
-          if (!querySnapshot.empty) {
-              // Si el producto ya está en el carrito, aumenta la cantidad
-              const docRef = querySnapshot.docs[0].ref;
-              const currentCantidad = querySnapshot.docs[0].data().cantidad;
+    if (!user) {
+        alert("Debes iniciar sesión para añadir productos al carrito.");
+        return;
+    }
 
-              docRef.update({
-                  cantidad: currentCantidad + 1
-              }).then(() => {
-                  console.log("Cantidad actualizada en el carrito");
-              }).catch((error) => {
-                  console.error("Error al actualizar la cantidad en el carrito: ", error);
-              });
-          } else {
-              // Si el producto no está en el carrito, lo agrega con cantidad inicial de 1
-              carritoRef.add({
-                  productoId: productoId,
-                  cantidad: 1,
-                  fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
-              }).then(() => {
-                  console.log("Producto añadido al carrito");
-              }).catch((error) => {
-                  console.error("Error al añadir el producto al carrito: ", error);
-              });
-          }
-      })
-      .catch((error) => {
-          console.error("Error al buscar el producto en el carrito: ", error);
-      });
+    // Referencia al carrito del usuario autenticado en Firestore
+    const carritoRef = firebase.firestore().collection('carrito').doc(user.uid).collection('productos');
+
+    // Buscar si el producto ya existe en el carrito del usuario
+    carritoRef.where('productoId', '==', productoId).get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                // Si el producto ya está en el carrito, aumenta la cantidad
+                const docRef = querySnapshot.docs[0].ref;
+                const currentCantidad = querySnapshot.docs[0].data().cantidad;
+
+                docRef.update({
+                    cantidad: currentCantidad + 1
+                }).then(() => {
+                    console.log("Cantidad actualizada en el carrito");
+                }).catch((error) => {
+                    console.error("Error al actualizar la cantidad en el carrito: ", error);
+                });
+            } else {
+                // Si el producto no está en el carrito, lo agrega con cantidad inicial de 1
+                carritoRef.add({
+                    productoId: productoId,
+                    cantidad: 1,
+                    fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    alert("Producto añadido al carrito");
+                }).catch((error) => {
+                    console.error("Error al añadir el producto al carrito: ", error);
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Error al buscar el producto en el carrito: ", error);
+        });
+}
+function añadirCarritoSS(productoId) {
+    // Verificar si el usuario ha iniciado sesión
+    const user = firebase.auth().currentUser;
+
+    if (!user) {
+        alert("Debes iniciar sesión para añadir productos al carrito.");
+        return;
+    }
+
+    // Referencia al carrito del usuario autenticado en Firestore
+    const carritoRef = firebase.firestore().collection('carrito').doc(user.uid).collection('productos');
+
+    // Buscar si el producto ya existe en el carrito del usuario
+    carritoRef.where('productoId', '==', productoId).get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                // Si el producto ya está en el carrito, aumenta la cantidad
+                const docRef = querySnapshot.docs[0].ref;
+                const currentCantidad = querySnapshot.docs[0].data().cantidad;
+
+                docRef.update({
+                    cantidad: currentCantidad + 1
+                }).then(() => {
+                    console.log("Cantidad actualizada en el carrito");
+                }).catch((error) => {
+                    console.error("Error al actualizar la cantidad en el carrito: ", error);
+                });
+            } else {
+                // Si el producto no está en el carrito, lo agrega con cantidad inicial de 1
+                carritoRef.add({
+                    productoId: productoId,
+                    cantidad: 1,
+                    fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    alert("Producto añadido al carrito");
+                }).catch((error) => {
+                    alert("Error al añadir el producto al carrito: ", error);
+                });
+            }
+        })
+        .catch((error) => {
+            alert("Error al buscar el producto en el carrito: ", error);
+        });
 }

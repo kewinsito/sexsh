@@ -26,3 +26,7 @@
             });
     }
 });
+
+function añadirCarritoSS(){
+        
+}
