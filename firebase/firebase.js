@@ -257,3 +257,31 @@ function añadirCarritoSS(productoId) {
             alert("Error al buscar el producto en el carrito: ", error);
         });
 }
+// Configurar la visibilidad de los enlaces al iniciar o cerrar sesión
+firebase.auth().onAuthStateChanged(user => {
+    const linkIniciarSesion = document.getElementById('linkIniciarSesion');
+    const linkCerrarSesion = document.getElementById('linkCerrarSesion');
+
+    if (user) {
+        // Si el usuario está autenticado, mostrar "Cerrar Sesión" y ocultar "Iniciar Sesión"
+        linkIniciarSesion.style.display = 'none';
+        linkCerrarSesion.style.display = 'inline';
+    } else {
+        // Si el usuario no está autenticado, mostrar "Iniciar Sesión" y ocultar "Cerrar Sesión"
+        linkIniciarSesion.style.display = 'inline';
+        linkCerrarSesion.style.display = 'none';
+    }
+});
+
+// Función para cerrar sesión
+function cerrarSesion() {
+    firebase.auth().signOut()
+        .then(() => {
+            console.log("Sesión cerrada con éxito");
+            // Redireccionar a la página de inicio o actualizar el estado de los enlaces si es necesario
+            window.location.href = "index.html";
+        })
+        .catch(error => {
+            console.error("Error al cerrar sesión:", error);
+        });
+}
