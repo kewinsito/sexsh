@@ -33,13 +33,16 @@
         
                 // Crea un elemento para mostrar el nombre y precio del producto
                 const info = document.createElement('div');
-                info.textContent = `Nombre: ${data.nameProduct}, Precio: ${data.precioProduct}`;
+                info.textContent = `${data.nameProduct} `;
                 li.appendChild(info);
+                const info2 = document.createElement('div');
+                info2.textContent = `$ ${data.precioProduct}`;
+                li.appendChild(info2);
         
-                // Botón de eliminar
+                // Botón de añadir al carrito
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Añadir al Carrito';
-                deleteButton.onclick = () => deleteTask(doc.id);
+                deleteButton.onclick = () => addProductoCarrito(doc.id);
                 li.appendChild(deleteButton);
         
         

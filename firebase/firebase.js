@@ -13,27 +13,85 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-//inicio sesion
 const loginForm = document.getElementById('signin-form');
 const productForm = document.getElementById('product-form');
 const pushMessage = document.getElementById('pushMessage');
-function login() {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            // Mensaje de éxito
-        pushMessage.innerText = '¡Has iniciado sesión con éxito!';
-        pushMessage.style.display = 'block';
 
-        // Redirigir después de un breve retraso
-        setTimeout(() => {
-            pushMessage.style.display = 'none';
-            window.location.href = 'PanAdmin.html';
-        }, 1000);
-        })
-        .catch(error => alert(error.message));
+
+//registro
+function register() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const admin = false;
+
+  auth.createUserWithEmailAndPassword(email, password)
+      .then(userCredential => {
+          // Usuario registrado correctamente
+          const user = userCredential.user;
+          alert('Usuario registrado con éxito');
+
+          // Guardar usuario en la colección 'Usuarios' usando el uid como documento
+          return db.collection('Usuarios').doc(user.uid).set({
+              email: email,
+              admin: admin
+          });
+      })
+      .then(() => {
+          alert("Guardado con éxito");
+
+          // Limpiar los campos de entrada
+          document.getElementById('email').value = '';
+          document.getElementById('password').value = '';
+
+          // Redirigir a la página de inicio
+          window.location.href = 'index.html';
+      })
+      .catch(error => {
+          alert(error.message);
+      });
 }
+
+
+function login() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+
+  auth.signInWithEmailAndPassword(email, password)
+      .then(userCredential => {
+          // Usuario autenticado con éxito
+          const user = userCredential.user;
+
+          // Referencia al documento del usuario en la colección 'Usuarios'
+          return db.collection('Usuarios').doc(user.uid).get();
+      })
+      .then(doc => {
+          if (doc.exists) {
+              // Obtener el valor de admin desde el documento del usuario
+              const isAdmin = doc.data().admin;
+              
+              // Mensaje de éxito
+              const pushMessage = document.getElementById('pushMessage');
+              pushMessage.innerText = '¡Has iniciado sesión con éxito!';
+              pushMessage.style.display = 'block';
+
+              // Redirigir después de un breve retraso
+              setTimeout(() => {
+                  pushMessage.style.display = 'none';
+                  if (isAdmin) {
+                      window.location.href = 'PanAdmin.html';
+                  } else {
+                      window.location.href = 'index.html';
+                  }
+              }, 1000);
+          } else {
+              alert("No se encontró la información del usuario");
+          }
+      })
+      .catch(error => {
+          alert(error.message);
+      });
+}
+
 function logout() {
   auth.signOut()
       .then(() => {
@@ -109,4 +167,41 @@ function updateTask(id) {
   } else {
       alert("Ambos campos son obligatorios.");
   }
+}
+// Función para añadir o actualizar un producto en el carrito
+function addProductoCarrito(productoId) {
+  // Referencia a la colección 'carrito' en Firestore
+  const carritoRef = firebase.firestore().collection('carrito');
+
+  // Buscar si el producto ya existe en el carrito
+  carritoRef.where('productoId', '==', productoId).get()
+      .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+              // Si el producto ya está en el carrito, aumenta la cantidad
+              const docRef = querySnapshot.docs[0].ref;
+              const currentCantidad = querySnapshot.docs[0].data().cantidad;
+
+              docRef.update({
+                  cantidad: currentCantidad + 1
+              }).then(() => {
+                  console.log("Cantidad actualizada en el carrito");
+              }).catch((error) => {
+                  console.error("Error al actualizar la cantidad en el carrito: ", error);
+              });
+          } else {
+              // Si el producto no está en el carrito, lo agrega con cantidad inicial de 1
+              carritoRef.add({
+                  productoId: productoId,
+                  cantidad: 1,
+                  fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
+              }).then(() => {
+                  console.log("Producto añadido al carrito");
+              }).catch((error) => {
+                  console.error("Error al añadir el producto al carrito: ", error);
+              });
+          }
+      })
+      .catch((error) => {
+          console.error("Error al buscar el producto en el carrito: ", error);
+      });
 }
