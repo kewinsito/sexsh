@@ -8,7 +8,49 @@
     <link rel="stylesheet" href="stylenovedades.css">
 </head>
 <body>
+    
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() { 
+          function iniciarPagina() { 
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+            
+            // Obtiene los datos de la colección 'Novedades' desde la base de datos
+            db.collection('Novedades').get().then(snapshot => {
+              snapshot.forEach(doc => {
+                const li = document.createElement('li');
+                
+                // Obtén los datos del documento
+                const data = doc.data();
+                
+                // Crea y agrega la imagen
+                const img = document.createElement('img');
+                img.src = data.UrlProduct; // Asegúrate de que el campo sea la URL de la imagen
+                img.alt = `Imagen de ${data.nameProduct}`;
+                img.style.width = '100px'; // Ajusta el tamaño de la imagen según tus necesidades
+                li.appendChild(img);
+        
+                // Crea un elemento para mostrar el nombre y precio del producto
+                const info = document.createElement('div');
+                info.textContent = `Nombre: ${data.nameProduct}, Precio: ${data.precioProduct}`;
+                li.appendChild(info);
+        
+                // Botón de eliminar
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Añadir al Carrito';
+                deleteButton.onclick = () => deleteTask(doc.id);
+                li.appendChild(deleteButton);
+        
+        
+                taskList.appendChild(li);
+              });
+            });
+          }
+        
+          iniciarPagina();
+        });
+        </script>        
   <!-- Header con imagen como logo y búsqueda -->
   <div class="logo">
     <a href="index.html">
@@ -81,156 +123,7 @@
   <!-- Contenido principal -->
   <main>
         <div class="container">
-            <div class="product">
-                <a href="VisualizacionProducto.html">
-                <img src="https://th.bing.com/th/id/OIP.55ECsPPdpy6PLeMvmp744AHaHa?rs=1&pid=ImgDetMain" 
-                 alt="MultiOrgasmos" href="VisualizacionProducto.html">
-                </a>
-                <h3>Sen intimo MultiOrgasmos</h3>
-                <p class="price">$250.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.16Z72IqQ2IH1wKMC-ffcKwHaHa?rs=1&pid=ImgDetMain"
-                 alt="Lubricante anal">
-                <h3>Sen intimo Lubricante anal</h3>
-                <p class="price">$220.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://rossmakeup.co/wp-content/uploads/2022/08/9437e2191a239845da2f87d74e86c2847faa080c_1024x1024.webp" 
-                alt="Euforia">
-                <h3>Sen intimo Euforia</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://luegopagocdn.azureedge.net/content-process/KWL-GCC1145-0.webp" 
-                alt="Black Power">
-                <h3>Black Power Potenciador</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-        </div>
-        <div class="container">
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.55ECsPPdpy6PLeMvmp744AHaHa?rs=1&pid=ImgDetMain" 
-                 alt="MultiOrgasmos">
-                <h3>Sen intimo MultiOrgasmos</h3>
-                <p class="price">$250.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.16Z72IqQ2IH1wKMC-ffcKwHaHa?rs=1&pid=ImgDetMain"
-                 alt="Lubricante anal">
-                <h3>Sen intimo Lubricante anal</h3>
-                <p class="price">$220.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://rossmakeup.co/wp-content/uploads/2022/08/9437e2191a239845da2f87d74e86c2847faa080c_1024x1024.webp" 
-                alt="Euforia">
-                <h3>Sen intimo Euforia</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://luegopagocdn.azureedge.net/content-process/KWL-GCC1145-0.webp" 
-                alt="Black Power">
-                <h3>Black Power Potenciador</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-        </div>
-        <div class="container">
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.55ECsPPdpy6PLeMvmp744AHaHa?rs=1&pid=ImgDetMain" 
-                 alt="MultiOrgasmos">
-                <h3>Sen intimo MultiOrgasmos</h3>
-                <p class="price">$250.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.16Z72IqQ2IH1wKMC-ffcKwHaHa?rs=1&pid=ImgDetMain"
-                 alt="Lubricante anal">
-                <h3>Sen intimo Lubricante anal</h3>
-                <p class="price">$220.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://rossmakeup.co/wp-content/uploads/2022/08/9437e2191a239845da2f87d74e86c2847faa080c_1024x1024.webp" 
-                alt="Euforia">
-                <h3>Sen intimo Euforia</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://luegopagocdn.azureedge.net/content-process/KWL-GCC1145-0.webp" 
-                alt="Black Power">
-                <h3>Black Power Potenciador</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-        </div>
-        <div class="container">
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.55ECsPPdpy6PLeMvmp744AHaHa?rs=1&pid=ImgDetMain" 
-                 alt="MultiOrgasmos">
-                <h3>Sen intimo MultiOrgasmos</h3>
-                <p class="price">$250.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.16Z72IqQ2IH1wKMC-ffcKwHaHa?rs=1&pid=ImgDetMain"
-                 alt="Lubricante anal">
-                <h3>Sen intimo Lubricante anal</h3>
-                <p class="price">$220.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://rossmakeup.co/wp-content/uploads/2022/08/9437e2191a239845da2f87d74e86c2847faa080c_1024x1024.webp" 
-                alt="Euforia">
-                <h3>Sen intimo Euforia</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://luegopagocdn.azureedge.net/content-process/KWL-GCC1145-0.webp" 
-                alt="Black Power">
-                <h3>Black Power Potenciador</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-        </div>
-        <div class="container">
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.55ECsPPdpy6PLeMvmp744AHaHa?rs=1&pid=ImgDetMain" 
-                 alt="MultiOrgasmos">
-                <h3>Sen intimo MultiOrgasmos</h3>
-                <p class="price">$250.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://th.bing.com/th/id/OIP.16Z72IqQ2IH1wKMC-ffcKwHaHa?rs=1&pid=ImgDetMain"
-                 alt="Lubricante anal">
-                <h3>Sen intimo Lubricante anal</h3>
-                <p class="price">$220.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://rossmakeup.co/wp-content/uploads/2022/08/9437e2191a239845da2f87d74e86c2847faa080c_1024x1024.webp" 
-                alt="Euforia">
-                <h3>Sen intimo Euforia</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
-            <div class="product">
-                <img src="https://luegopagocdn.azureedge.net/content-process/KWL-GCC1145-0.webp" 
-                alt="Black Power">
-                <h3>Black Power Potenciador</h3>
-                <p class="price">$180.000</p>
-                <button class="add-to-cart">Añadir a Carrito</button>
-            </div>
+            <ul id="task-list"></ul>
         </div>
   </main>
   <div class="pagination">
@@ -263,6 +156,10 @@
     </div>
       <p class="copyright">© 2024, <a href="https://www.facebook.com/p/SexShop-Seduction-100064192802511/">Sex Shop Seduction</a> by <a href="https://www.facebook.com/abigail.aguirre.98837399">@Abigail Aguirre</a></p>
   </footer>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="./firebase/firebase.js"></script>
 
     
 </body>
