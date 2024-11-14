@@ -79,7 +79,7 @@ body {
 }
 
 /* Botón de agregar al carrito */
-#task-list li .add-to-cart {
+#task-list li button {
     background-color: #000000; /* Fondo negro */
     color: white; /* Texto blanco */
     border: none;
@@ -92,7 +92,7 @@ body {
 }
 
 /* Estilo del botón cuando el cursor pasa sobre él */
-#task-list li .add-to-cart:hover {
+#task-list li button:hover {
     background-color: #e4549c; /* Fondo rosa */
     color: #fff; /* Texto blanco */
     border-color: #e90c7b; /* Color del borde */
