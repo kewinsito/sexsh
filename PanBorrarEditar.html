@@ -17,7 +17,7 @@
         const li = document.createElement('li');
         
         // Asigna dos valores específicos
-        li.textContent = `Nombre: ${doc.data().nameProduct}, Precio: ${doc.data().precioProduct}`;
+        li.textContent = `${doc.data().nameProduct} Precio: $ ${doc.data().precioProduct} Cantidad: ${doc.data().cantidadProduct}`;
 
         // Botón de eliminar
         const deleteButton = document.createElement('button');
