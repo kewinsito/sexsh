@@ -3,33 +3,38 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7; /* Fondo gris claro */
+  background-color: #000000; /* Fondo gris claro */
   color: #333; /* Color de texto más suave */
 }
 
-/* Header */
+/* Estilo del header */
 header {
-  background-color: #222; /* Fondo oscuro */
-  color: #ee1858; /* Rosa vibrante */
-  padding: 20px 30px;
+  background-color: #000;
+  color: #ee1858;
+  padding: 15px 20px;
   display: flex;
-  justify-content: flex-end; /* Botón de cerrar sesión alineado a la derecha */
+  justify-content: space-between; /* Alinea los elementos al principio y al final */
   align-items: center;
+  width: 100%;
 }
 
+/* Estilo de los botones del header */
 header button {
   background-color: #ee1858;
   color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 12px 25px;
+  border: 2px solid #ee1858;
+  border-radius: 12px;
+  padding: 8px 16px; /* Ajusta el tamaño del padding */
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  flex: none; /* Evita que los botones se estiren */
+  margin: 0; /* Elimina el espacio extra entre los botones */
 }
 
+/* Efectos de hover, focus y active para los botones */
 header button:hover {
   background-color: #d0174f; /* Rosa más oscuro */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -87,126 +92,88 @@ main hr {
 
 /* Contenedor de productos */
 .product-list-container {
-  background-color: #ffffff;
-  width: 100%;
+  padding: 20px;
+  background-color: #242424;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-width: 800px;
-  margin: 30px auto;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+  margin: 20px auto;
 }
 
-/* Estilo de cada producto */
-.product {
-  color: #333;
-}
-
-.product-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
+/* Elemento de cada producto */
 .product-item {
+  background-color: #101010;
+  border: 1px solid #090909;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  background-color: #f9f9f9; /* Fondo suave para cada item */
-  border-radius: 8px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  font-size: 16px;
 }
 
-.product-item:hover {
-  transform: scale(1.02);
-  background-color: #f1f1f1; /* Fondo al pasar el cursor */
-}
-
+/* Evitar margen extra en el último producto */
 .product-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
+/* Contenedor y estilo de botones para editar y eliminar */
 .buttons {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   justify-content: flex-end; /* Alinea los botones a la derecha */
+  align-items: center;
 }
 
 /* Botones de editar y eliminar */
 .edit-btn, .delete-btn {
-  border: none;
-  padding: 8px 16px;
+  padding: 8px 15px;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  color: #fff;
 }
 
 .edit-btn {
-  background-color: #4CAF50; /* Verde para añadir */
-  color: white;
+  background-color: #4caf50; /* Verde */
 }
 
 .edit-btn:hover {
-  background-color: #45a049;
-  transform: scale(1.05); /* Efecto de zoom */
+  background-color: #45a049; /* Verde más oscuro */
 }
 
 .delete-btn {
-  background-color: #FF4B5C; /* Rojo para eliminar */
-  color: white;
+  background-color: #f44336; /* Rojo */
 }
 
 .delete-btn:hover {
-  background-color: #e03e4f;
-  transform: scale(1.05); /* Efecto de zoom */
+  background-color: #e53935; /* Rojo más oscuro */
 }
 
-/* Estilo de los formularios */
-.form-container {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px;
-  margin: 30px auto;
-  max-width: 500px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+/* Estilo de los botones del header */
+header .header-buttons {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 15px;
+  padding: 0 20px;
 }
 
-.form-container input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border 0.3s ease;
+/* Estilo del contenedor principal */
+main {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.form-container input:focus {
-  border-color: #ee1858;
-  outline: none;
+main h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.form-container button {
-  background-color: #ee1858;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  width: 100%;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.form-container button:hover {
-  background-color: #d0174f;
-  transform: scale(1.05); /* Efecto de zoom */
-}
-
-.form-container button:active {
-  background-color: #9e0c3e;
-  transform: scale(0.98); /* Efecto de reducción */
+main hr {
+  margin: 20px 0;
+  border: 1px solid #ddd;
 }
