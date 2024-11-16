@@ -244,3 +244,27 @@ footer a {
     display: block;
     clear:both;
  }
+
+
+
+ .formulario-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre los inputs */
+    width: 100%; /* Para que los elementos ocupen todo el ancho del contenedor */
+    max-width: 400px; /* Ancho máximo del formulario, opcional */
+    margin: 20px auto; /* Centrar el formulario en la página */
+    gap: 15px; /* Espacio entre los inputs */
+}
+
+.formulario-column input {
+    margin-bottom: 15px; /
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.formulario-column input:last-child {
+    margin-bottom: 0;
+}

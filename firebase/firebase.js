@@ -103,16 +103,21 @@ function añadir() {
   const UrlProduct = document.getElementById('product-image').value;
   const nameProduct = document.getElementById('product-name').value;
   const precioProduct = document.getElementById('product-price').value;
-
-  db.collection('Novedades').add({ UrlProduct, nameProduct, precioProduct })
+  const cantidadProduct = document.getElementById('product-cant').value;
+if(UrlProduct=="" || nameProduct=="" || precioProduct=="" || cantidadProduct==""){
+    alert("todos los campos deben estar llenitos")
+}else{
+  db.collection('Novedades').add({ UrlProduct, nameProduct, cantidadProduct , precioProduct })
       .then(docRef => {
         alert("Guardado con éxito");
           // Limpiar los campos de entrada
           document.getElementById('product-image').value = '';
           document.getElementById('product-name').value = '';
+          document.getElementById('product-cant').value = '';
           document.getElementById('product-price').value = '';
       })
       .catch(error => alert(error.message));
+    }
 }
 function cargarBorEdi(){
     window.location.href="PanBorrarEditar.html"
@@ -284,4 +289,30 @@ function cerrarSesion() {
         .catch(error => {
             console.error("Error al cerrar sesión:", error);
         });
+}
+
+function mostrarOpciones() {
+    const opcion1 = document.getElementById('opcion1').checked;
+    const opcion2 = document.getElementById('opcion2').checked;
+    const formularioDomicilio = document.getElementById('formularioDomicilio');
+    const mensajeRecoger = document.getElementById('mensajeRecoger');
+    
+    if (opcion1) {
+        formularioDomicilio.style.display = 'block'; 
+        mensajeRecoger.style.display = 'none';
+    } else if (opcion2) {
+        formularioDomicilio.style.display = 'none';
+        mensajeRecoger.style.display = 'block';
+
+        // este liimpiar los campos del formulario pake no se guañldenna
+        document.getElementById('nombre').value = "";
+        document.getElementById('direccion').value = "";
+        document.getElementById('ciudad').value = "";
+        document.getElementById('codigoPostal').value = "";
+        document.getElementById('telefono').value = "";
+        document.getElementById('email').value = "";
+    } else {
+        formularioDomicilio.style.display = 'none';
+        mensajeRecoger.style.display = 'none';
+    }
 }
