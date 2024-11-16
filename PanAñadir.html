@@ -13,6 +13,7 @@
         </a>
     </div>
     <header>
+        <button onclick="volver()">Volver</button> 
         <button onclick="cerrarSesion()">Cerrar sesión</button>
 
         <script>
@@ -20,15 +21,15 @@
             function cerrarSesion() {
                 window.location.href = 'index.html';
             }
+            function volver() {
+                window.location.href = 'PanAdmin.html';              
+            }
         </script>
     </header>
     <main>
-        <h2>Añadir nuevo producto a<br>Novedades</h2>
-        <p>Solo tu puedes alcanzar tus metas</p>
-        <hr>
         <div class="form-container">
-              <h2 class="h2form">Subir Producto</h2>
-              <label for="product-image">Url del Producto:</label>
+              <h2 class="h2form">Añade un Nuevo Producto</h2>
+              <label for="product-image">Url de la imagen Producto:</label>
               <input type="url" id="product-image" name="product-image" required>
               
               <label for="product-name">Nombre del Producto:</label>

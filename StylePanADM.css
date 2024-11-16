@@ -1,20 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    /* Fondo blanco */
-    color: #ee1858;
-}
-header {
-    background-color: #000;
-    color: #ee1858;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: end; /* Cambiado para centrar el contenido principal */
-    align-items: end;
-    text-align: end;
-}
+
 header button{
     background-color: #ee1858;
     color: white;
@@ -28,8 +12,8 @@ header button{
     transition: all 0.3s ease;
 }
 header button:hover{
-    background-color: #ee1858;
-  border: 2px solid #ee1858;
+    background-color: #dd4b76;
+  border: 2px solid #000000;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 header button:focus{
@@ -65,18 +49,16 @@ header button:active{
 }
 main h2{
     font-size: 50px;
+    color: #e90c7b;
 }
-main p{
-    font-size: 25px;
-    color: #000;
 
-}
 main h2,p {
     text-align: center;
+    font-size: 32px;
 }
 /*estilo para main*/
 .añadir, .borMod {
-    background-size: cover; /* Ajusta la imagen para cubrir el área completa */
+     /* Ajusta la imagen para cubrir el área completa */
     height: 310px;
     width: 100%;
     text-align: center;
@@ -92,23 +74,24 @@ main h2,p {
     font-size: 20px;
 }
 .añadir{
-    background-image: url("https://th.bing.com/th/id/R.bb908c863151b430bd3a52205f80b0f2?rik=pbr2OyNwXKURDw&pid=ImgRaw&r=0");
+    background-image: url("https://img.freepik.com/fotos-premium/coleccion-juguetes-sexuales-rosas-sobre-fondo-rosa_185193-123800.jpg");
 }
 .borMod{
-    background-image: url('https://www.chio-lecca.edu.pe/cdn/shop/files/lenceria_chio_lecca_9c56c573-303c-4f4e-a7b2-2121a9bf79bc.jpg?v=1687566740&width=1200');
+    background-image: url('https://media.istockphoto.com/id/1877377254/es/foto/colecci%C3%B3n-de-juguetes-sexuales-sobre-fondo-rosa.jpg?s=612x612&w=0&k=20&c=MGQM54yQ396-UnppGxLuq-Lo4hA0D81_YTcAAH7imMo=');
 }
+
 
 /* Estilos comunes para títulos */
 .añadir-title, .borMod-title {
     font-size: 48px;
-    color: #d20b6e;
+    color: #ef3d96;
     margin-bottom: 10px;
 }
 
 /* Estilos comunes para subtítulos */
 .añadir-subtitle, .borMod-subtitle {
     font-size: 24px;
-    color: #ffffff;
+    color:  #f45aa7;
     margin-bottom: 15px;
     text-align: center; /* Asegura que el texto esté centrado */
     line-height: 1.5; /* Establece un interlineado consistente */
@@ -118,7 +101,7 @@ main h2,p {
 /* Estilos comunes para botones */
 .añadir-button, .borMod-button {
     background-color: #000;
-    color: #fff;
+    color: #1d1c1c;
     border: 2px solid #333;
     padding: 12px 24px;
     border-radius: 8px;
@@ -145,5 +128,116 @@ main h2,p {
 /* Estilos comunes para botones en estado activo */
 .añadir-button:active, .borMod-button:active {
     transform: scale(0.98);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 10px rgba(201, 9, 86, 0.4);
+}
+
+
+/* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+header button {
+    background-color: #e90c7b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+header button:hover {
+    background-color: #c00766;
+}
+
+/* Main container */
+main {
+    text-align: center;
+}
+
+main h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Panel container */
+.panel-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Panel styling */
+.panel {
+    background-color: #e90c7b;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Icon styling */
+.panel .icon {
+    font-size: 50px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Panel titles */
+.panel h1 {
+    font-size: 22px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.panel h3 {
+    font-size: 16px;
+    color: #fafafa;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Panel buttons */
+.panel-button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.panel-button:hover {
+    background-color: #fafafa;
+    color: #000000;
 }
