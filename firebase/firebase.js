@@ -150,29 +150,36 @@ function loadTasks() {
     });
 });
 }
+// Función para eliminar una tarea
 function deleteTask(id) {
-  db.collection('Novedades').doc(id).delete()
-      .then(() => loadTasks())
-      .catch(error => alert(error.message));
-}
-
-// Función para actualizar una tarea
-function updateTask(id) {
-  const newName = prompt('Ingrese el nuevo nombre');
-  const newPrice = prompt('Ingrese el nuevo precio');
-  
-  if (newName && newPrice) {
-      db.collection('Novedades').doc(id).update({
-        nameProduct: newName,
-        precioProduct: parseFloat(newPrice)  // Asegúrate de que el precio sea un número
-      })
-      .then(() => loadTasks())
-      .catch(error => alert(error.message));
-      loadTasks()
-  } else {
-      alert("Ambos campos son obligatorios.");
+    db.collection('Novedades').doc(id).delete()
+        .then(() => {
+            loadTasks(); // Carga las tareas actualizadas (opcional si vas a recargar la página)
+            location.reload(); // Recarga la página
+        })
+        .catch(error => alert(error.message));
   }
-}
+  
+  // Función para actualizar una tarea
+  function updateTask(id) {
+    const newName = prompt('Ingrese el nuevo nombre');
+    const newPrice = prompt('Ingrese el nuevo precio');
+    
+    if (newName && newPrice) {
+        db.collection('Novedades').doc(id).update({
+          nameProduct: newName,
+          precioProduct: parseFloat(newPrice) // Asegúrate de que el precio sea un número
+        })
+        .then(() => {
+            loadTasks(); // Carga las tareas actualizadas (opcional si vas a recargar la página)
+            location.reload(); // Recarga la página
+        })
+        .catch(error => alert(error.message));
+    } else {
+        alert("Ambos campos son obligatorios.");
+    }
+  }
+  
 // Función para añadir o actualizar un producto en el carrito
 function addProductoCarrito(productoId) {
     // Verificar si el usuario está autenticado
