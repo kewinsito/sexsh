@@ -7,66 +7,6 @@
     <link rel="stylesheet" href="StyleAñBr.css">
 </head>
 <body>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        function iniciarPagina() { 
-            const taskList = document.getElementById('task-list');
-            taskList.innerHTML = ''; // Limpiar la lista antes de agregar los productos           
-            // Obtener todos los productos desde Firestore
-            db.collection('Novedades').get().then(snapshot => {
-                snapshot.forEach(doc => {
-                    // Crear el contenedor para cada producto
-                    const li = document.createElement('li');
-                    li.classList.add('product-item'); // Añadimos la clase para estilizar
-
-                    // Asignar los valores del producto de manera más clara
-                    const nameSpan = document.createElement('span');
-                    nameSpan.classList.add('product-name');
-                    nameSpan.textContent = doc.data().nameProduct;
-                    
-                    const priceSpan = document.createElement('span');
-                    priceSpan.classList.add('product-price');
-                    priceSpan.textContent = `Precio: $ ${doc.data().precioProduct}`;
-                    
-                    const quantitySpan = document.createElement('span');
-                    quantitySpan.classList.add('product-quantity');
-                    quantitySpan.textContent = `Cantidad: ${doc.data().cantidadProduct}`;
-
-                    // Agregar los elementos al contenedor
-                    li.appendChild(nameSpan);
-                    li.appendChild(priceSpan);
-                    li.appendChild(quantitySpan);
-
-                    // Crear el contenedor de los botones
-                    const buttonContainer = document.createElement('div');
-                    buttonContainer.classList.add('buttons'); // Aseguramos que los botones estén dentro de un contenedor
-
-                    // Botón de eliminar
-                    const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('delete-btn'); // Clase para el botón de eliminar
-                    deleteButton.textContent = 'Eliminar';
-                    deleteButton.onclick = () => deleteTask(doc.id); // Al hacer clic se elimina el producto
-                    buttonContainer.appendChild(deleteButton);
-
-                    // Botón de actualizar
-                    const updateButton = document.createElement('button');
-                    updateButton.classList.add('edit-btn'); // Clase para el botón de actualizar
-                    updateButton.textContent = 'Actualizar';
-                    updateButton.onclick = () => updateTask(doc.id); // Al hacer clic se actualiza el producto
-                    buttonContainer.appendChild(updateButton);
-
-                    // Añadir el contenedor de los botones a la lista
-                    li.appendChild(buttonContainer);
-                    taskList.appendChild(li); // Finalmente, agregar el producto a la lista
-                });
-            });
-        }
-
-        // Llamar a la función para que se ejecute cuando cargue la página
-        iniciarPagina(); 
-
-    });
-  </script>
 
     <div class="logo">
         <a href="index.html">
@@ -85,29 +25,14 @@
           function volver() {
                 window.location.href = 'PanAdmin.html';              
             }
-
-            function updatePage() {
-  const taskList = document.getElementById('task-list');
-  taskList.innerHTML = ''; // Limpia la lista de productos
-  db.collection('Novedades').get().then(snapshot => {
-    snapshot.forEach(doc => {
-      const li = document.createElement('li');
-      li.classList.add('product-item');
-      li.innerHTML = `
-        <span>Nombre: ${doc.data().nameProduct}, Precio: ${doc.data().precioProduct}</span>
-        <div class="buttons">
-          <button class="edit-btn" onclick="updateTask('${doc.id}')">Actualizar</button>
-          <button class="delete-btn" onclick="deleteTask('${doc.id}')">Eliminar</button>
-        </div>
-      `;
-      taskList.appendChild(li);
-    });
-  });
-}
       </script>
     </header>
+    
 
     <main>
+      <button onclick="cargarColeccion('Toys')">Toys</button>
+      <button onclick="cargarColeccion('Lenceria')">Lencería</button>
+      <button onclick="cargarColeccion('Novedades')">Novedades</button>
         <h2>Cambia algo a Novedades</h2>
         <div class="product-list-container">
           <ul id="task-list"></ul>

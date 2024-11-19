@@ -180,8 +180,8 @@ function loadTasks() {
 });
 }
 // Función para eliminar una tarea
-function deleteTask(id) {
-    db.collection('Novedades').doc(id).delete()
+function deleteTask(id,refC) {
+    db.collection(refC).doc(id).delete()
         .then(() => {
             loadTasks(); // Carga las tareas actualizadas (opcional si vas a recargar la página)
             location.reload(); // Recarga la página
@@ -190,7 +190,7 @@ function deleteTask(id) {
   }
   
   // Función para actualizar una tarea
-  function updateTask(id) {
+  function updateTask(id,refC) {
     // Función para solicitar un nombre válido o permitir omitirlo
     function solicitarNombre(actualNombre) {
         let nombre;
@@ -243,7 +243,7 @@ function deleteTask(id) {
     }
 
     // Obtener los valores actuales de la base de datos
-    db.collection('Novedades').doc(id).get().then((doc) => {
+    db.collection(refC).doc(id).get().then((doc) => {
         if (doc.exists) {
             const data = doc.data();
 
@@ -253,7 +253,7 @@ function deleteTask(id) {
             const newCantidad = solicitarCantidad(data.cantidadProduct);
 
             // Actualizar en la base de datos
-            db.collection('Novedades').doc(id).update({
+            db.collection(refC).doc(id).update({
                 nameProduct: newName,
                 precioProduct: newPrice,
                 cantidadProduct: newCantidad
@@ -416,3 +416,50 @@ function mostrarOpciones() {
         mensajeRecoger.style.display = 'none';
     }
 }
+
+const taskList = document.getElementById('task-list');
+
+// Función para cargar y mostrar productos de una colección específica
+function cargarColeccion(coleccion) {
+    taskList.innerHTML = ''; // Limpiar la lista antes de agregar los productos
+
+    // Obtener los productos desde la colección seleccionada
+    db.collection(coleccion).get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+                // Si no hay productos, mostrar un mensaje
+                const mensaje = document.createElement('p');
+                mensaje.textContent = `No hay productos en la colección "${coleccion}".`;
+                taskList.appendChild(mensaje);
+            } else {
+                snapshot.forEach(doc => {
+                    agregarProductoALista(doc); // Agregar cada producto a la lista
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar la colección:', error);
+            alert('Ocurrió un error al cargar los productos.');
+        });
+}
+
+// Función para agregar un producto a la lista
+function agregarProductoALista(doc) {
+    const li = document.createElement('li');
+    li.classList.add('product-item');
+    li.innerHTML = `
+        <span class="product-name">${doc.data().nameProduct}</span>
+        <span class="product-price">Precio: $ ${doc.data().precioProduct}</span>
+        <span class="product-quantity">Cantidad: ${doc.data().cantidadProduct}</span>
+        <div class="buttons">
+            <button class="edit-btn" onclick="updateTask('${doc.id}', '${doc.ref.parent.id}')">Actualizar</button>
+            <button class="delete-btn" onclick="deleteTask('${doc.id}', '${doc.ref.parent.id}')">Eliminar</button>
+        </div>
+    `;
+    taskList.appendChild(li);
+}
+
+// Cargar una colección por defecto al iniciar la página
+document.addEventListener('DOMContentLoaded', function () {
+    cargarColeccion('Novedades');
+});
