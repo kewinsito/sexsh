@@ -38,28 +38,34 @@
          });
          </script>
          <script>
-            document.addEventListener('DOMContentLoaded', function() { 
-              function iniciarPagina() { 
-                const taskList = document.getElementById('kitFeticheNegro');
-                taskList.innerHTML = '';
-                
-                // Obtiene el documento con el ID 'kitFeticheNegro' desde la colección 'Toys'
-                db.collection('Toys').doc('kitFeticheNegro').get()
+            document.addEventListener('DOMContentLoaded', function () { 
+              function mostrarProducto(docId) {
+                const container = document.getElementById(docId);
+                container.innerHTML = '';
+          
+                // Obtiene el documento con el ID especificado desde la colección 'Toys'
+                db.collection('Toys').doc(docId).get()
                   .then(doc => {
                     if (doc.exists) {
                       const data = doc.data();
                       const li = document.createElement('li');
-                      const info2 = document.createElement('div');
-                      info2.textContent = `$ ${data.precioProduct}`;
-                      li.appendChild(info2);
-                      taskList.appendChild(li);
+                      const info = document.createElement('div');
+                      info.textContent = `$ ${data.precioProduct}`;
+                      li.appendChild(info);
+                      container.appendChild(li);
                     } else {
-                      console.error("No se encontró el documento con ID 'kitFeticheNegro'");
+                      console.error(`No se encontró el documento con ID '${docId}'`);
                     }
                   })
                   .catch(error => {
-                    console.error("Error al obtener el documento: ", error);
+                    console.error(`Error al obtener el documento '${docId}': `, error);
                   });
+              }
+          
+              function iniciarPagina() { 
+                // Llama a mostrarProducto para cada ID y contenedor
+                mostrarProducto('kitFeticheNegro');
+                mostrarProducto('setBondage8');
               }
               
               iniciarPagina();
@@ -144,7 +150,7 @@
                 <div class="product bondage">
                     <img src="https://github.com/kewinsito/pictur/blob/main/bg850.png?raw=true" alt="Bondage">
                     <h3>Set Bondage 8pzs</h3>
-                    <p class="price">$850.000</p>
+                    <p class="price" id="setBondage8"></p>
                     <button class="add-to-cart" onclick="añadirCarritoSS('setBondage8')" >Añadir a Carrito</button>
                 </div>
                 <div class="product bondage">
