@@ -48,7 +48,7 @@
                   .then(doc => {
                     if (doc.exists) {
                       const data = doc.data();
-                      const li = document.createElement('li');
+                      const li = document.createElement('p');
                       const info = document.createElement('div');
                       info.textContent = `$ ${data.precioProduct}`;
                       li.appendChild(info);
