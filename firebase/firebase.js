@@ -297,7 +297,7 @@ function addProductoCarrito(productoId) {
                 docRef.update({
                     cantidad: currentCantidad + 1
                 }).then(() => {
-                    console.log("Cantidad actualizada en el carrito");
+                    alert("Cantidad actualizada en el carrito");
                 }).catch((error) => {
                     console.error("Error al actualizar la cantidad en el carrito: ", error);
                 });
@@ -341,7 +341,7 @@ function añadirCarritoSS(productoId) {
                 docRef.update({
                     cantidad: currentCantidad + 1
                 }).then(() => {
-                    console.log("Cantidad actualizada en el carrito");
+                    alert("Cantidad actualizada en el carrito");
                 }).catch((error) => {
                     console.error("Error al actualizar la cantidad en el carrito: ", error);
                 });
