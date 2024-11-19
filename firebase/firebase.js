@@ -191,23 +191,87 @@ function deleteTask(id) {
   
   // Función para actualizar una tarea
   function updateTask(id) {
-    const newName = prompt('Ingrese el nuevo nombre');
-    const newPrice = prompt('Ingrese el nuevo precio');
-    
-    if (newName && newPrice) {
-        db.collection('Novedades').doc(id).update({
-          nameProduct: newName,
-          precioProduct: parseFloat(newPrice) // Asegúrate de que el precio sea un número
-        })
-        .then(() => {
-            loadTasks(); // Carga las tareas actualizadas (opcional si vas a recargar la página)
-            location.reload(); // Recarga la página
-        })
-        .catch(error => alert(error.message));
-    } else {
-        alert("Ambos campos son obligatorios.");
+    // Función para solicitar un nombre válido o permitir omitirlo
+    function solicitarNombre(actualNombre) {
+        let nombre;
+        do {
+            nombre = prompt(`Ingrese el nuevo nombre o deje vacío para conservar el actual (${actualNombre}):`);
+            if (nombre === '') return actualNombre; // Si el usuario deja vacío, se conserva el valor actual
+            if (!nombre || nombre.trim() === '') {
+                alert("El nombre no puede estar vacío si desea cambiarlo.");
+            }
+        } while (!nombre || nombre.trim() === '');
+        return nombre.trim();
     }
-  }
+
+    // Función para solicitar un precio válido o permitir omitirlo
+    function solicitarPrecio(actualPrecio) {
+        let precio;
+        do {
+            precio = prompt(`Ingrese el nuevo precio o deje vacío para conservar el actual (${actualPrecio}):`);
+            if (precio === '') return actualPrecio; // Si el usuario deja vacío, se conserva el valor actual
+            if (!esNumeroPositivo(precio)) {
+                alert("El precio debe ser un número positivo si desea cambiarlo.");
+            }
+        } while (!esNumeroPositivo(precio) && precio !== '');
+        return parseFloat(precio);
+    }
+
+    // Función para solicitar una cantidad válida o permitir omitirla
+    function solicitarCantidad(actualCantidad) {
+        let cantidad;
+        do {
+            cantidad = prompt(`Ingrese una nueva cantidad o deje vacío para conservar la actual (${actualCantidad}):`);
+            if (cantidad === '') return actualCantidad; // Si el usuario deja vacío, se conserva el valor actual
+            if (!esEnteroPositivo(cantidad)) {
+                alert("La cantidad debe ser un número entero positivo si desea cambiarla.");
+            }
+        } while (!esEnteroPositivo(cantidad) && cantidad !== '');
+        return parseInt(cantidad, 10);
+    }
+
+    // Función para verificar si un valor es un número positivo
+    function esNumeroPositivo(valor) {
+        const numero = Number(valor);
+        return !isNaN(numero) && numero > 0;
+    }
+
+    // Función para verificar si un valor es un número entero positivo
+    function esEnteroPositivo(valor) {
+        const numero = Number(valor);
+        return Number.isInteger(numero) && numero > 0;
+    }
+
+    // Obtener los valores actuales de la base de datos
+    db.collection('Novedades').doc(id).get().then((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+
+            // Solicitar los nuevos valores, permitiendo conservar los actuales
+            const newName = solicitarNombre(data.nameProduct);
+            const newPrice = solicitarPrecio(data.precioProduct);
+            const newCantidad = solicitarCantidad(data.cantidadProduct);
+
+            // Actualizar en la base de datos
+            db.collection('Novedades').doc(id).update({
+                nameProduct: newName,
+                precioProduct: newPrice,
+                cantidadProduct: newCantidad
+            })
+            .then(() => {
+                alert("Producto actualizado correctamente.");
+                loadTasks(); // Opcional: Recargar lista de tareas
+                location.reload(); // Recargar la página
+            })
+            .catch(error => alert(`Error al actualizar: ${error.message}`));
+        } else {
+            alert("No se encontró el producto.");
+        }
+    }).catch(error => alert(`Error al obtener los datos: ${error.message}`));
+}
+
+
+
   
 // Función para añadir o actualizar un producto en el carrito
 function addProductoCarrito(productoId) {
