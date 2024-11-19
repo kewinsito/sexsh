@@ -119,6 +119,35 @@ if(UrlProduct=="" || nameProduct=="" || precioProduct=="" || cantidadProduct==""
       .catch(error => alert(error.message));
     }
 }
+function añadirToys() {
+    const IDProduct = document.getElementById('product-ID').value;
+    const UrlProduct = document.getElementById('product-image').value;
+    const nameProduct = document.getElementById('product-name').value;
+    const precioProduct = document.getElementById('product-price').value;
+    const cantidadProduct = document.getElementById('product-cant').value;
+
+    if (UrlProduct === "" || nameProduct === "" || precioProduct === "" || cantidadProduct === "" || IDProduct ==="") {
+        alert("Todos los campos deben estar llenos");
+    } else {
+        // Usar UrlProduct como ID del documento
+        db.collection('Toys').doc(IDProduct).set({
+            UrlProduct,
+            nameProduct,
+            cantidadProduct,
+            precioProduct
+        })
+        .then(() => {
+            alert("Guardado con éxito");
+            // Limpiar los campos de entrada
+            document.getElementById('product-ID').value = '';
+            document.getElementById('product-image').value = '';
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-cant').value = '';
+            document.getElementById('product-price').value = '';
+        })
+        .catch(error => alert(error.message));
+    }
+}
 function cargarBorEdi(){
     window.location.href="PanBorrarEditar.html"
    

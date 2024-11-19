@@ -29,9 +29,17 @@
     <main>
         <div class="form-container">
               <h2 class="h2form">Añade un Nuevo Producto</h2>
+              <script>
+                // este apartado es temporal
+                </script>
+              <label for="product-ID">ID Producto:</label>
+              <input type="url" id="product-ID" name="product-ID" required>
+              <script>
+                // este apartado es temporal
+                </script>
               <label for="product-image">Url de la imagen Producto:</label>
               <input type="url" id="product-image" name="product-image" required>
-              
+             
               <label for="product-name">Nombre del Producto:</label>
               <input type="text" id="product-name" name="product-name" required>
 
@@ -41,7 +49,7 @@
               <label for="product-price">Precio:</label>
               <input type="number" id="product-price" name="product-price" required>
               
-              <button class="buttonform" onclick="añadir()">Guardar</button>
+              <button class="buttonform" onclick="añadirToys()">Guardar</button>
           </div>
     </main>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

@@ -37,6 +37,35 @@
            });
          });
          </script>
+         <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+              function iniciarPagina() { 
+                const taskList = document.getElementById('kitFeticheNegro');
+                taskList.innerHTML = '';
+                
+                // Obtiene el documento con el ID 'kitFeticheNegro' desde la colección 'Toys'
+                db.collection('Toys').doc('kitFeticheNegro').get()
+                  .then(doc => {
+                    if (doc.exists) {
+                      const data = doc.data();
+                      const li = document.createElement('li');
+                      const info2 = document.createElement('div');
+                      info2.textContent = `$ ${data.precioProduct}`;
+                      li.appendChild(info2);
+                      taskList.appendChild(li);
+                    } else {
+                      console.error("No se encontró el documento con ID 'kitFeticheNegro'");
+                    }
+                  })
+                  .catch(error => {
+                    console.error("Error al obtener el documento: ", error);
+                  });
+              }
+              
+              iniciarPagina();
+            });
+          </script>
+          
     
     <!-- Header con imagen como logo y búsqueda -->
     <div class="logo">
@@ -109,7 +138,7 @@
                  alt="MultiOrgasmos" href="VisualizacionProducto.html">
                 </a>
                     <h3>Kit Fetiche Negro 4pzs</h3>
-                    <p class="price">$250.000</p>
+                    <p class="price" id="kitFeticheNegro"></p>
                     <button class="add-to-cart" onclick="añadirCarritoSS('kitFeticheNegro')" >Añadir a Carrito</button>
                 </div>
                 <div class="product bondage">
