@@ -57,7 +57,7 @@ main h2,p {
     font-size: 32px;
 }
 /*estilo para main*/
-.añadir, .borMod {
+.stok ,.añadir, .borMod {
      /* Ajusta la imagen para cubrir el área completa */
     height: 310px;
     width: 100%;
@@ -80,16 +80,19 @@ main h2,p {
     background-image: url('https://media.istockphoto.com/id/1877377254/es/foto/colecci%C3%B3n-de-juguetes-sexuales-sobre-fondo-rosa.jpg?s=612x612&w=0&k=20&c=MGQM54yQ396-UnppGxLuq-Lo4hA0D81_YTcAAH7imMo=');
 }
 
+.stok{
+    background-image: url("https://img.freepik.com/fotos-premium/coleccion-juguetes-sexuales-rosas-sobre-fondo-rosa_185193-123800.jpg");
+}
 
 /* Estilos comunes para títulos */
-.añadir-title, .borMod-title {
+.añadir-title, .borMod-title, .stok-title {
     font-size: 48px;
     color: #ef3d96;
     margin-bottom: 10px;
 }
 
 /* Estilos comunes para subtítulos */
-.añadir-subtitle, .borMod-subtitle {
+.añadir-subtitle, .borMod-subtitle, .stok-subtitle {
     font-size: 24px;
     color:  #f45aa7;
     margin-bottom: 15px;
@@ -99,7 +102,7 @@ main h2,p {
 }
 
 /* Estilos comunes para botones */
-.añadir-button, .borMod-button {
+.añadir-button, .borMod-button, .stok-button {
     background-color: #000;
     color: #1d1c1c;
     border: 2px solid #333;
@@ -116,7 +119,7 @@ main h2,p {
 }
 
 /* Estilos comunes para botones en estado hover */
-.añadir-button:hover, .borMod-button:hover {
+.añadir-button:hover, .borMod-button:hover, .stok-button:hover {
     background-color: #333;
     background-image: linear-gradient(145deg, #333, #000);
     color: #ff007f;
@@ -126,7 +129,7 @@ main h2,p {
 }
 
 /* Estilos comunes para botones en estado activo */
-.añadir-button:active, .borMod-button:active {
+.añadir-button:active, .borMod-button:active, .stok-button:active  {
     transform: scale(0.98);
     box-shadow: 0 3px 10px rgba(201, 9, 86, 0.4);
 }
