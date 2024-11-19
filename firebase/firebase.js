@@ -130,7 +130,7 @@ function añadirToys() {
         alert("Todos los campos deben estar llenos");
     } else {
         // Usar UrlProduct como ID del documento
-        db.collection('Toys').doc(IDProduct).set({
+        db.collection('Lenceria').doc(IDProduct).set({
             UrlProduct,
             nameProduct,
             cantidadProduct,
