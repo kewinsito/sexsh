@@ -414,3 +414,22 @@ footer a {
         transform: translateY(0); /* Regresa a la posición original */
     }
 }
+
+
+
+
+/* Estilo para el logo de sesión */
+#adminButton {
+    display: none;
+    background: url('admin-logo.png') no-repeat center center; /* Agrega la imagen de tu logo de admin */
+    background-size: contain;
+    width: 40px; /* Ajusta el tamaño del logo */
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  #adminButton:hover {
+    transform: scale(1.1); /* Efecto de hover para hacerlo más atractivo */
+  }
