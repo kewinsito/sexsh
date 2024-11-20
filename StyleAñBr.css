@@ -177,3 +177,45 @@ main hr {
   margin: 20px 0;
   border: 1px solid #ddd;
 }
+
+
+        /* Botón principal */
+        button.inventario {
+          display: block;
+          margin: 20px auto;
+          background-color: #ee1858;
+          color: white;
+          border: none;
+          padding: 15px 30px;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      button.inventario:hover {
+          background-color: #ee1858;
+      }
+
+      /* Diseño de la lista */
+      .product-list-container-inventario {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+      .product-card {
+          width: 90%;
+          max-width: 600px;
+          background-color: rgb(0, 0, 0);
+          margin: 10px 0;
+          padding: 15px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .product-card h3 {
+          margin: 0 0 10px;
+          color: #ff2471;
+      }
+      .product-card p {
+          margin: 5px 0;
+          color: #ffffff;
+      }
