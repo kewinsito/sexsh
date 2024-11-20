@@ -11,7 +11,7 @@ body {
 /* Estilo para el contenedor de la lista */
 /* Estilo para el contenedor de la lista */
 /* Estilo para el contenedor de la lista */
-#task-list {
+#Novedades {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columnas para productos */
     gap: 20px; /* Espacio entre los productos */
@@ -21,7 +21,7 @@ body {
 }
 
 /* Estilo para cada elemento de la lista (producto) */
-#task-list li {
+#Novedades li {
     border: 2px solid #000000; /* Color de margen inicial */
     padding: 30px; /* Mayor padding para aumentar el tamaño */
     background-color: #e90c7b; /* Fondo rosa oscuro */
@@ -36,19 +36,19 @@ body {
 }
 
 /* Efecto hover en cada producto */
-#task-list li:hover {
+#Novedades li:hover {
     border-color: #e90c7b;
     transform: scale(1.15);
 }
 
 /* Cambiar el color del texto al hacer hover */
-#task-list li:hover h3,
-#task-list li:hover .price {
+#Novedades li:hover h3,
+#Novedades li:hover .price {
     color: #000000;
 }
 
 /* Imagen dentro de cada producto */
-#task-list li img {
+#Novedades li img {
     border-radius: 5px;
     background-color: white;
     border: 1px solid #e1e1e1;
@@ -59,27 +59,27 @@ body {
 }
 
 /* Estilos del título del producto */
-#task-list li h3 {
+#Novedades li h3 {
     font-size: 22px; /* Aumenta el tamaño del título */
     color: #000000; /* Texto en negro */
     margin: 15px 0;
 }
 
 /* Estilo para el precio */
-#task-list li .price {
+#Novedades li .price {
     font-size: 18px; /* Aumenta el tamaño de la fuente del precio */
     color: #000000; /* Texto en negro */
     margin: 10px 0;
 }
 
-#task-list li .price span {
+#Novedades li .price span {
     text-decoration: line-through;
     color: gray;
     font-size: 16px;
 }
 
 /* Botón de agregar al carrito */
-#task-list li button {
+#Novedades li button {
     background-color: #000000; /* Fondo negro */
     color: white; /* Texto blanco */
     border: none;
@@ -92,14 +92,14 @@ body {
 }
 
 /* Estilo del botón cuando el cursor pasa sobre él */
-#task-list li button:hover {
+#Novedades li button:hover {
     background-color: #e4549c; /* Fondo rosa */
     color: #fff; /* Texto blanco */
     border-color: #e90c7b; /* Color del borde */
 }
 
 /* Estilo para la etiqueta de oferta (si se aplica) */
-#task-list li .offer {
+#Novedades li .offer {
     background-color: black;
     color: white;
     padding: 5px;
