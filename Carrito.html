@@ -26,62 +26,16 @@
                 }
             }
 
-            function mostrarCarrito(uid) {
-                const tableBody = document.getElementById('carrito');
-                tableBody.innerHTML = ''; // Limpiar carrito antes de actualizar
+            
+           
 
-                db.collection('carrito').doc(uid).collection('productos').get().then(snapshot => {
-                    snapshot.forEach(doc => {
-                        const productoId = doc.data().productoId;
-                        const colecciones = ['Toys', 'Lenceria', 'Novedades'];
-                        colecciones.forEach(coleccion => {
-                        db.collection(coleccion).doc(productoId).get().then(productoDoc => {
-                            if (productoDoc.exists) {
-                                const producto = productoDoc.data();
-                                const tr = document.createElement('tr');
-                                tr.innerHTML = `
-                                    <td>
-                                        <div class="product-name">${producto.nameProduct}</div>
-                                        <div><span class="remove-link" onclick="quitarDelCarrito('${uid}', '${productoId}')">Quitar</span></div>
-                                    </td>
-                                    <td>$<span class="price" data-price="${producto.precioProduct}">${producto.precioProduct.toLocaleString()}</span></td>
-                                    <td>
-                                        <input type="number" class="quantity-input" value="1" min="1" onchange="updateTotal(this)">
-                                    </td>
-                                    <td>$<span class="total">${producto.precioProduct.toLocaleString()}</span></td>
-                                `;
-                                tableBody.appendChild(tr);
-                            }
-                        }).catch(error => {
-                            console.error("Error al obtener detalles del producto:", error);
-                        })
-                    });
-                    });
-                }).catch(error => {
-                    console.error("Error al cargar el carrito:", error);
-                });
-            }
-
-            function quitarDelCarrito(uid, productoId) {
-                db.collection('carrito').doc(uid).collection('productos').doc(productoId).delete().then(() => {
-                    alert('Producto eliminado del carrito');
-                    mostrarCarrito(uid); // Recargar carrito
-                }).catch(error => {
-                    console.error("Error al eliminar producto:", error);
-                });
-            }
-
-            function updateTotal(inputElement) {
-                const row = inputElement.closest('tr');
-                const price = parseFloat(row.querySelector('.price').dataset.price);
-                const quantity = parseInt(inputElement.value, 10);
-                const total = price * quantity;
-                row.querySelector('.total').textContent = total.toLocaleString();
-            }
+            
+            
 
             // Escuchar cambios de autenticación
             auth.onAuthStateChanged(user => {
                 iniciarPaginaauth(user);
+                
             });
         });
     </script>
@@ -111,33 +65,10 @@
                 <!-- Productos cargados dinámicamente aquí -->
             </tbody>
         </table>
-        <textarea class="note-box" placeholder="Agregue una nota a su pedido"></textarea>
-
-        <label for="opcion1"> 
-            <input type="radio" id="opcion1" name="opciones" value="opcion1" onchange="mostrarOpciones()"> Entrega a Domicilio 
-        </label><br>
-        <label for="opcion2">
-            <input type="radio" id="opcion2" name="opciones" value="opcion2" onchange="mostrarOpciones()"> Recoger en Tienda
-        </label>
-        <!-- Formulario para Entrega a Domicilio -->
-        <div id="formularioDomicilio" style="display: none;" class="formulario-column">
-            <h3>Datos de entrega </h3>
-            <input type="text" placeholder="Nombre">
-            <input type="text" placeholder="Dirección">
-            <input type="text" placeholder="Ciudad">
-            <input type="text" placeholder="Código Postal">
-            <input type="text" placeholder="Teléfono">
-            <input type="text" placeholder="Correo Electrónico">
-        </div>
-    
-        <!-- Mensaje para Recoger en Tienda -->
-        <div id="mensajeRecoger" style="display: none;">
-            <p>Puede recoger su pedido en nuestra tienda física. Nos encontramos en la colonia Centro, 33800 Hidalgo del Parral, Chih. ¡Gracias por su preferencia!</p>
-        </div>
         <div class="subtotal">
             Subtotal: <strong>$<span id="subtotal">0</span> MXN</strong>
         </div>
-        <a href="#" class="continue-btn">CONTINUAR</a>
+        <a onclick="irPagar()" class="continue-btn">CONTINUAR</a>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

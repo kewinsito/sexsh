@@ -3,9 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Formulario de Transferencia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .hidden {
+            display: none;
+        }
+        .tiendahid {
+            display: none;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #aaa;
+        }
+    </style>
 </head>
 <body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función para obtener parámetros de la URL
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Obtener el valor del total desde la URL
+            const total = getQueryParam('total');
+
+            // Actualizar el contenido de los elementos con el ID 'totalDisplay' y 'total'
+            const totalDisplay = document.getElementById('totalDisplay');
+            const totalLabel = document.getElementById('total');
+
+            if (total) {
+                const totalText = `Total a pagar: ${total} MXN`;
+                if (totalDisplay) totalDisplay.textContent = totalText;
+                if (totalLabel) totalLabel.textContent = `${total} MXN`;
+            } else {
+                if (totalDisplay) totalDisplay.textContent = 'No se recibió el total.';
+                if (totalLabel) totalLabel.textContent = '$0.00 MXN';
+            }
+        });
+    </script>
+
+<h1>Formulario de Transferencia</h1>
+
+<form id="transferForm">
+    <div class="form-group">
+        <label for="cardNumber">Número de tarjeta</label>
+        <label for="">4152 3142 0909 8774</label>
+    </div>
+
+    <div class="form-group">
+        <label for="bankName">Banco</label>
+        <label for="">BBVA bancomer</label>
+    </div>
+    <div class="form-group">
+        <label for="titular">Titular</label>
+        <label for="">Sandra Yareth Romero Cano</label>
+    </div>
+
+    <div class="form-group"> 
+        <label for="amount">Monto transferido</label>
+        <label id="total"></label>
+    </div>
+    <div id="totalDisplay"></div>
+
+    <div class="form-group">
+        <label for="receipt">Subir comprobante de transferencia</label>
+        <input type="file" id="receipt" name="receipt" accept="image/*" required>
+    </div>
+
+    <div class="form-group">
+        <label for="deliveryOption">Método de entrega</label>
+        <select id="deliveryOption" name="deliveryOption" required>
+            <option value="Tienda">Recoger en tienda</option>
+            <option value="home">Envío a domicilio</option>
+        </select>
+    </div>
+
+    <div id="Tienda" class="tiendahid">
+        <p>Puede recoger su pedido en nuestra tienda física. Nos encontramos en la colonia Centro, 33800 Hidalgo del Parral, Chih. ¡Gracias por su preferencia!</p>
+
+    </div>
+
+    <div id="homeAddress" class="hidden">
+        <div class="form-group">
+            <label for="NameClient">Nombre</label>
+            <input type="text" id="NameClient" name="NameClient" placeholder="Nombre completo" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" id="address" name="address" placeholder="Calle, número, colonia, ciudad" required>
+        </div>
+        <div class="form-group">
+            <label for="Telefono">Telefono</label>
+            <input type="number" id="" name="Telefono" placeholder="Telefono móvil" required>
+        </div>
+
+        <div class="form-group">
+            <label for="postalCode">Código postal</label>
+            <input type="text" id="postalCode" name="postalCode" placeholder="Código postal" required>
+        </div>
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+    const deliveryOption = document.getElementById('deliveryOption');
+    const homeAddress = document.getElementById('homeAddress');
+    const transferForm = document.getElementById('transferForm');
+    const Tienda = document.getElementById('Tienda');
+
+    // Generar número de pedido aleatorio
     
+
+    deliveryOption.addEventListener('change', () => {
+        if (deliveryOption.value === 'home') {
+            homeAddress.classList.remove('hidden');
+        } else {
+            homeAddress.classList.add('hidden');
+        }
+        if(deliveryOption.value === 'Tienda'){
+            Tienda.classList.remove('tiendahid');
+        }else{
+            Tienda.classList.add('tiendahid');
+        }
+    });
+
+    transferForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(transferForm);
+        formData.append('orderNumber', orderNumber);
+
+        // Aquí se integraría el backend para enviar el correo
+        
+
+        // Opcional: puedes enviar los datos a un servidor con fetch()
+        fetch('/send-email', {
+            method: 'POST',
+             body: formData
+         }).then(response => response.json())
+           .then(data => console.log(data))
+           .catch(error => console.error('Error:', error));
+    });
+</script>
+
 </body>
 </html>
