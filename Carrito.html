@@ -111,6 +111,28 @@
             </tbody>
         </table>
         <textarea class="note-box" placeholder="Agregue una nota a su pedido"></textarea>
+
+        <label for="opcion1"> 
+            <input type="radio" id="opcion1" name="opciones" value="opcion1" onchange="mostrarOpciones()"> Entrega a Domicilio 
+        </label><br>
+        <label for="opcion2">
+            <input type="radio" id="opcion2" name="opciones" value="opcion2" onchange="mostrarOpciones()"> Recoger en Tienda
+        </label>
+        <!-- Formulario para Entrega a Domicilio -->
+        <div id="formularioDomicilio" style="display: none;" class="formulario-column">
+            <h3>Datos de entrega </h3>
+            <input type="text" placeholder="Nombre">
+            <input type="text" placeholder="Dirección">
+            <input type="text" placeholder="Ciudad">
+            <input type="text" placeholder="Código Postal">
+            <input type="text" placeholder="Teléfono">
+            <input type="text" placeholder="Correo Electrónico">
+        </div>
+    
+        <!-- Mensaje para Recoger en Tienda -->
+        <div id="mensajeRecoger" style="display: none;">
+            <p>Puede recoger su pedido en nuestra tienda física. Nos encontramos en la colonia Centro, 33800 Hidalgo del Parral, Chih. ¡Gracias por su preferencia!</p>
+        </div>
         <div class="subtotal">
             Subtotal: <strong>$<span id="subtotal">0</span> MXN</strong>
         </div>
