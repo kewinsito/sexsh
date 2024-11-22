@@ -117,6 +117,11 @@
     </style>
 </head>
 <body>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="./firebase/firebase.js"></script>
+    <script src="./firebase/auth.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Función para obtener parámetros de la URL
@@ -142,16 +147,6 @@
             }
         });
     </script>
-    <script>
-        // Función para generar y mostrar un número aleatorio
-   function generarNumeroAleatorio() {
-       const numeroAleatorio = Math.floor(Math.random() * 10001); // Número entre 0 y 100
-       document.getElementById('numero').textContent = `Número generado: ${numeroAleatorio}`;
-   }
-
-   // Generar el número aleatorio al cargar la página
-   window.onload = generarNumeroAleatorio;
-</script>
 
 <h1>Formulario de Transferencia</h1>
 
@@ -179,7 +174,7 @@
     <label for="" id="numero">generando numero...</label>
     <div class="form-group">
         <label for="receipt">Subir comprobante de transferencia</label>
-        <input type="file" id="receipt" name="receipt" accept="image/*" required>
+        <input type="file" id="receipt" name="receipt" accept="image/*" >
     </div>
 
     <div class="form-group">
@@ -198,20 +193,20 @@
     <div id="homeAddress" class="hidden">
         <div class="form-group">
             <label for="NameClient">Nombre</label>
-            <input type="text" id="NameClient" name="NameClient" placeholder="Nombre completo" required>
+            <input type="text" id="NameClient" name="NameClient" placeholder="Nombre completo">
         </div>
         <div class="form-group">
             <label for="address">Dirección</label>
-            <input type="text" id="address" name="address" placeholder="Calle, número, colonia, ciudad" required>
+            <input type="text" id="address" name="address" placeholder="Calle, número, colonia, ciudad">
         </div>
         <div class="form-group">
             <label for="Telefono">Telefono</label>
-            <input type="number" id="" name="Telefono" placeholder="Telefono móvil" required>
+            <input type="number" id="Telefono" name="Telefono" placeholder="Telefono móvil" >
         </div>
 
         <div class="form-group">
             <label for="postalCode">Código postal</label>
-            <input type="text" id="postalCode" name="postalCode" placeholder="Código postal" required>
+            <input type="text" id="postalCode" name="postalCode" placeholder="Código postal">
         </div>
     </div>
 
@@ -224,40 +219,72 @@
     const transferForm = document.getElementById('transferForm');
     const Tienda = document.getElementById('Tienda');
 
-    // Generar número de pedido aleatorio
-    
+    // Declarar número aleatorio como variable global
+    let numeroAleatorio;
 
+    // Función para generar y mostrar un número aleatorio
+    function generarNumeroAleatorio() {
+        numeroAleatorio = Math.floor(Math.random() * 10001); // Número entre 0 y 10000
+        document.getElementById('numero').textContent = `Número generado: ${numeroAleatorio}`;
+    }
+
+    // Generar el número aleatorio al cargar la página
+    window.onload = generarNumeroAleatorio;
+
+    // Mostrar u ocultar campos según la opción seleccionada
     deliveryOption.addEventListener('change', () => {
         if (deliveryOption.value === 'home') {
             homeAddress.classList.remove('hidden');
         } else {
             homeAddress.classList.add('hidden');
         }
-        if(deliveryOption.value === 'Tienda'){
+        if (deliveryOption.value === 'Tienda') {
             Tienda.classList.remove('tiendahid');
-        }else{
+        } else {
             Tienda.classList.add('tiendahid');
         }
     });
 
+    // Manejo del formulario
     transferForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const formData = new FormData(transferForm);
-        formData.append('orderNumber', orderNumber);
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
 
-        // Aquí se integraría el backend para enviar el correo
-        
+        // Obtener el valor del total desde la URL
+        const total = getQueryParam('total');
 
-        // Opcional: puedes enviar los datos a un servidor con fetch()
-        fetch('/send-email', {
-            method: 'POST',
-             body: formData
-         }).then(response => response.json())
-           .then(data => console.log(data))
-           .catch(error => console.error('Error:', error));
+        if (deliveryOption.value === 'home') {
+            const NameClient = document.getElementById('NameClient').value;
+            const address = document.getElementById('address').value;
+            const Telefono = document.getElementById('Telefono').value;
+            const postalCode = document.getElementById('postalCode').value;
+
+            if (NameClient === "" || address === "" || Telefono === "" || postalCode === "") {
+                alert("Todos los campos deben estar llenos.");
+            } else {
+                // Agregar el pedido a la base de datos (Firebase Firestore en este caso)
+                db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, numeroAleatorio })
+                    .then(docRef => {
+                        alert("Guardado con éxito");
+                        // Limpiar los campos de entrada
+                        document.getElementById('NameClient').value = '';
+                        document.getElementById('address').value = '';
+                        document.getElementById('Telefono').value = '';
+                        document.getElementById('postalCode').value = '';
+                    })
+                    .catch(error => alert(error.message));
+            }
+        } else {
+            // Mostrar el número aleatorio en un caso diferente
+            alert(`Número de pedido: ${numeroAleatorio}`);
+        }
     });
 </script>
+
 
 </body>
 </html>
