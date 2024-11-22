@@ -183,7 +183,7 @@ main hr {
         button.inventario {
           display: block;
           margin: 20px auto;
-          background-color: #ee1858;
+          background-color:  #ee1858;
           color: white;
           border: none;
           padding: 15px 30px;
@@ -192,7 +192,7 @@ main hr {
           cursor: pointer;
       }
       button.inventario:hover {
-          background-color: #ee1858;
+          background-color:  #ee1858;
       }
 
       /* Diseño de la lista */
@@ -213,9 +213,26 @@ main hr {
       }
       .product-card h3 {
           margin: 0 0 10px;
-          color: #ff2471;
+          color:  #9e0c3e;
       }
       .product-card p {
           margin: 5px 0;
           color: #ffffff;
       }
+      button {
+        background-color: black; /* Fondo negro */
+        color:  #ee1858; /* Texto rosa */
+        border: 2px solid  #ee1858; /* Borde rosa opcional */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px 20px; /* Espaciado interno */
+        font-size: 16px; /* Tamaño de fuente */
+        cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Animación suave */
+    }
+    
+    /* Efecto hover */
+    button:hover {
+        background-color:  #ee1858; /* Fondo cambia a rosa */
+        color: black; /* Texto cambia a negro */
+    }
+    
