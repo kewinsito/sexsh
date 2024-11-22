@@ -262,12 +262,13 @@
             const address = document.getElementById('address').value;
             const Telefono = document.getElementById('Telefono').value;
             const postalCode = document.getElementById('postalCode').value;
+            let formaDentrega=true;
 
             if (NameClient === "" || address === "" || Telefono === "" || postalCode === "") {
                 alert("Todos los campos deben estar llenos.");
             } else {
                 // Agregar el pedido a la base de datos (Firebase Firestore en este caso)
-                db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, numeroAleatorio })
+                db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, numeroAleatorio, formaDentrega})
                     .then(docRef => {
                         alert("Guardado con éxito");
                         // Limpiar los campos de entrada
@@ -279,8 +280,14 @@
                     .catch(error => alert(error.message));
             }
         } else {
-            // Mostrar el número aleatorio en un caso diferente
-            alert(`Número de pedido: ${numeroAleatorio}`);
+            let formaDentrega=false;
+            db.collection('Pedidos').add({total, numeroAleatorio, formaDentrega})
+                    .then(docRef => {
+                        alert("Guardado con éxito");
+                        // Limpiar los campos de entrada
+                        
+                    })
+                    .catch(error => alert(error.message));
         }
     });
 </script>
