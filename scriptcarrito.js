@@ -17,17 +17,44 @@ function updateTotal(element) {
     // Actualizar el subtotal general
     updateSubtotal();
 }
+function updateCantidad(uid, docId, nuevaCantidad) {
+    // Verificar que el valor sea válido
+    const cantidad = parseInt(nuevaCantidad, 10);
+    if (isNaN(cantidad) || cantidad < 1) {
+        console.error("Cantidad no válida:", nuevaCantidad);
+        return;
+    }
+
+    // Actualizar la cantidad en la base de datos
+    db.collection('carrito').doc(uid).collection('productos').doc(docId).update({
+        cantidad: cantidad
+    }).then(() => {
+        console.log("Cantidad actualizada exitosamente:", cantidad);
+        // Opcional: Actualizar el subtotal dinámicamente si es necesario
+        updateSubtotal();
+    }).catch(error => {
+        console.error("Error al actualizar la cantidad:", error);
+    });
+}
 
 function updateSubtotal() {
     let subtotal = 0;
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        const row = input.closest('tr');
+        const price = parseFloat(row.querySelector('.price').dataset.price);
+        const quantity = parseInt(input.value, 10);
+        const totalCell = row.querySelector('.total');
 
-    // Obtener todos los totales de productos
-    document.querySelectorAll('.total').forEach(function(totalElement) {
-        subtotal += parseInt(totalElement.innerText.replace(/\./g, ''));
+        // Calcular el nuevo total por producto
+        const total = price * quantity;
+        totalCell.textContent = total.toLocaleString();
+
+        // Sumar al subtotal
+        subtotal += total;
     });
 
-    // Actualizar el subtotal
-    document.getElementById('subtotal').innerText = subtotal.toLocaleString('es-CO');
+    // Actualizar el subtotal en el DOM
+    document.getElementById('subtotal').textContent = subtotal.toLocaleString();
 }
 
 function mostrarCarrito(uid) {
@@ -40,6 +67,7 @@ function mostrarCarrito(uid) {
 
         snapshot.forEach(doc => {
             const productoId = doc.data().productoId;
+            const cantidad = doc.data().cantidad;
             const quitar = doc.id;
             const colecciones = ['Toys', 'Lenceria', 'Novedades'];
 
@@ -50,23 +78,30 @@ function mostrarCarrito(uid) {
                         if (productoDoc.exists) {
                             const producto = productoDoc.data();
                             const tr = document.createElement('tr');
-                            subtotal += parseInt(producto.precioProduct);
+                            
+                            // Calcular el subtotal del producto actual
+                            const precioTotalProducto = producto.precioProduct * (cantidad || 1);
+                            subtotal += precioTotalProducto;
 
                             tr.innerHTML = `
-                            <td>
-                            <img src="${producto.UrlProduct}" alt="${producto.nameProduct}" style="width: 100px; height: auto; border-radius: 9px;">
-                            </td>
-
+                                <td>
+                                    <img src="${producto.UrlProduct}" alt="${producto.nameProduct}" style="width: 100px; height: auto; border-radius: 9px;">
+                                </td>
                                 <td>
                                     <div class="product-name">${producto.nameProduct}</div>
                                     <div><span class="remove-link" onclick="quitarDelCarrito('${uid}', '${quitar}')">Quitar</span></div>
                                 </td>
                                 <td>$<span class="price" data-price="${producto.precioProduct}">${producto.precioProduct.toLocaleString()}</span></td>
                                 <td>
-                                    <input type="number" class="quantity-input" value="1" min="1" onchange="updateTotal(this)">
+                                    <input type="number" 
+                                           class="quantity-input" 
+                                           value="${cantidad || 1}" 
+                                           min="1" 
+                                           onchange="updateCantidad('${uid}', '${quitar}', this.value); updateSubtotal();">
                                 </td>
-                                <td>$<span class="total">${producto.precioProduct.toLocaleString()}</span></td>
+                                <td>$<span class="total">${precioTotalProducto.toLocaleString()}</span></td>
                             `;
+
                             tableBody.appendChild(tr);
                         }
                     }).catch(error => {
@@ -78,13 +113,14 @@ function mostrarCarrito(uid) {
 
         // Esperar a que todas las promesas de productos se resuelvan
         Promise.all(productoPromises).then(() => {
-            // Actualizar el subtotal después de cargar todos los productos
-            document.getElementById('subtotal').innerText = subtotal.toLocaleString('es-CO');
+            // Actualizar el subtotal en el DOM después de cargar todos los productos
+            document.getElementById('subtotal').innerText = `${subtotal.toLocaleString('es-CO')}`;
         });
     }).catch(error => {
         console.error("Error al cargar el carrito:", error);
     });
 }
+
 
 function quitarDelCarrito(uid, quitar) {
     db.collection('carrito').doc(uid).collection('productos').doc(quitar).delete().then(() => {
