@@ -53,6 +53,10 @@ function mostrarCarrito(uid) {
                             subtotal += parseInt(producto.precioProduct);
 
                             tr.innerHTML = `
+                            <td>
+                            <img src="${producto.UrlProduct}" alt="${producto.nameProduct}" style="width: 100px; height: auto; border-radius: 9px;">
+                            </td>
+
                                 <td>
                                     <div class="product-name">${producto.nameProduct}</div>
                                     <div><span class="remove-link" onclick="quitarDelCarrito('${uid}', '${quitar}')">Quitar</span></div>
