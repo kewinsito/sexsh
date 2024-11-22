@@ -214,6 +214,27 @@
 </form>
 
 <script>
+    let UID;
+    document.addEventListener('DOMContentLoaded', function () {
+            // Inicializar Firebase desde firebase.js
+            // Asegúrate de tener db y auth configurados en firebase.js
+            function iniciarPaginaauth(user) {
+                if (user) {
+                    const userEmailElement = document.getElementById('Correo');
+                    const email = user.email;
+                    UID = user.uid;
+                } else {
+                    console.log('No hay usuario autenticado.');
+                    // Opcional: redirigir al login
+                }
+            }
+            // Escuchar cambios de autenticación
+            auth.onAuthStateChanged(user => {
+                iniciarPaginaauth(user);
+                
+            });
+        });
+
     const deliveryOption = document.getElementById('deliveryOption');
     const homeAddress = document.getElementById('homeAddress');
     const transferForm = document.getElementById('transferForm');
@@ -245,9 +266,11 @@
         }
     });
 
-    transferForm.addEventListener('submit', async (event) => {
+  // Manejo del formulario
+transferForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
@@ -255,13 +278,6 @@
 
     // Obtener el valor del total desde la URL
     const total = getQueryParam('total');
-
-    // Ejemplo: productos a guardar en la subcolección
-    const productos = [
-        { nombre: "Producto 1", cantidad: 2, precio: 100 },
-        { nombre: "Producto 2", cantidad: 1, precio: 50 }
-    ];
-
     if (deliveryOption.value === 'home') {
         const NameClient = document.getElementById('NameClient').value;
         const address = document.getElementById('address').value;
@@ -274,21 +290,25 @@
         } else {
             // Agregar el pedido a la base de datos (Firebase Firestore en este caso)
             db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, formaDentrega })
-                .then(docRef => {
+                .then(async (docRef) => {
                     alert("Pedido guardado con éxito");
 
-                    // Agregar productos a la subcolección 'productos'
-                    const batch = db.batch();
-                    productos.forEach(producto => {
-                        const productoRef = docRef.collection('productos').doc();
-                        batch.set(productoRef, producto);
-                    });
+                    // Obtener productos desde una subcolección existente
+                        const productosSnapshot = await db.collection('carrito').doc(UID).collection('productos').get();
+                        const batch = db.batch();
 
-                    return batch.commit();
+                        productosSnapshot.forEach(productoDoc => {
+                            const productoData = productoDoc.data();
+                            const productoRef = docRef.collection('productos').doc(); // Subcolección 'productos' dentro del pedido
+                            batch.set(productoRef, productoData); // Copia cada producto al nuevo documento
+                        });
+
+                        // Confirmar la escritura en Firestore
+                        return batch.commit();
                 })
                 .then(() => {
-                    alert("Productos guardados con éxito");
-
+                    alert("Productos copiados con éxito");
+                    
                     // Limpiar los campos de entrada
                     document.getElementById('NameClient').value = '';
                     document.getElementById('address').value = '';
@@ -300,20 +320,24 @@
     } else {
         let formaDentrega = false;
         db.collection('Pedidos').add({ total, formaDentrega })
-            .then(docRef => {
+            .then(async (docRef) => {
                 alert("Pedido guardado con éxito");
 
-                // Agregar productos a la subcolección 'productos'
-                const batch = db.batch();
-                productos.forEach(producto => {
-                    const productoRef = docRef.collection('productos').doc();
-                    batch.set(productoRef, producto);
-                });
+                // Obtener productos desde una subcolección existente
+                const productosSnapshot = await db.collection('carrito').doc(UID).collection('productos').get();
+                        const batch = db.batch();
 
-                return batch.commit();
+                        productosSnapshot.forEach(productoDoc => {
+                            const productoData = productoDoc.data();
+                            const productoRef = docRef.collection('productos').doc(); // Subcolección 'productos' dentro del pedido
+                            batch.set(productoRef, productoData); // Copia cada producto al nuevo documento
+                        });
+
+                        // Confirmar la escritura en Firestore
+                        return batch.commit();
             })
             .then(() => {
-                alert("Productos guardados con éxito");
+                alert("Productos copiados con éxito");
             })
             .catch(error => alert(error.message));
     }
