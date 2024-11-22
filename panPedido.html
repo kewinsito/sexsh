@@ -51,6 +51,7 @@
         db.collection(coleccion).get().then(snapshot => {
             snapshot.forEach(async doc => {
                 const pedidoData = doc.data();
+                
                 const li = document.createElement('li');
                 li.className = 'product-card';
 
@@ -125,10 +126,36 @@ for (const productoDoc of productosSnapshot.docs) {
 // Función para manejar la confirmación del pedido
 function confirmarPedido(pedidoId) {
     if (confirm(`¿Estás seguro de confirmar el pedido ${pedidoId}?`)) {
-        // Aquí puedes realizar acciones adicionales, como actualizar el estado del pedido
-        alert(`Pedido ${pedidoId} confirmado.`);
+        const pedidoRef = db.collection('Pedidos').doc(pedidoId);
+
+        // Eliminar documentos en la subcolección
+        pedidoRef.collection('subcoleccion').get()
+            .then(snapshot => {
+                const deletePromises = [];
+
+                snapshot.forEach(doc => {
+                    deletePromises.push(doc.ref.delete());
+                });
+
+                // Esperar a que todas las subcolecciones se eliminen
+                return Promise.all(deletePromises);
+            })
+            .then(() => {
+                // Eliminar el documento principal
+                return pedidoRef.delete();
+            })
+            .then(() => {
+                alert(`Pedido ${pedidoId} confirmado y eliminado, incluyendo su subcolección.`);
+                // Opcional: Actualizar la interfaz
+                mostrarTodo();
+            })
+            .catch(error => {
+                console.error(`Error al eliminar el pedido ${pedidoId} y su subcolección:`, error);
+                alert(`Hubo un problema al confirmar el pedido. Por favor, inténtalo de nuevo.`);
+            });
     }
 }
+
 
     </script>
 </body>
