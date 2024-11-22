@@ -245,7 +245,7 @@
 
     // Función para generar y mostrar un número aleatorio
     function generarNumeroAleatorio() {
-        numeroAleatorio = Math.floor(Math.random() * 10001); // Número entre 0 y 10000
+        numeroAleatorio = Math.floor(Math.random() * 100001); // Número entre 0 y 10000
         document.getElementById('numero').textContent = `Número generado: ${numeroAleatorio}`;
     }
 
@@ -266,11 +266,10 @@
         }
     });
 
-  // Manejo del formulario
+// Manejo del formulario
 transferForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
@@ -293,21 +292,33 @@ transferForm.addEventListener('submit', async (event) => {
                 .then(async (docRef) => {
                     alert("Pedido guardado con éxito");
 
-                    // Obtener productos desde una subcolección existente
-                        const productosSnapshot = await db.collection('carrito').doc(UID).collection('productos').get();
-                        const batch = db.batch();
+                    // Obtener productos desde la subcolección existente
+                    const productosSnapshot = await db.collection('carrito').doc(UID).collection('productos').get();
+                    const batch = db.batch();
 
-                        productosSnapshot.forEach(productoDoc => {
-                            const productoData = productoDoc.data();
-                            const productoRef = docRef.collection('productos').doc(); // Subcolección 'productos' dentro del pedido
-                            batch.set(productoRef, productoData); // Copia cada producto al nuevo documento
-                        });
+                    // Copiar productos a la subcolección del pedido
+                    productosSnapshot.forEach(productoDoc => {
+                        const productoData = productoDoc.data();
+                        const productoRef = docRef.collection('productos').doc(); // Subcolección 'productos' dentro del pedido
+                        batch.set(productoRef, productoData); // Copia cada producto al nuevo documento
+                    });
 
-                        // Confirmar la escritura en Firestore
-                        return batch.commit();
+                    // Confirmar la escritura en Firestore
+                    await batch.commit();
+
+                    alert("Productos copiados con éxito");
+
+                    // Eliminar productos de la subcolección del carrito
+                    const deleteBatch = db.batch();
+                    productosSnapshot.forEach(productoDoc => {
+                        const productoRef = db.collection('carrito').doc(UID).collection('productos').doc(productoDoc.id);
+                        deleteBatch.delete(productoRef); // Eliminar cada documento
+                    });
+
+                    return deleteBatch.commit(); // Confirmar la eliminación
                 })
                 .then(() => {
-                    alert("Productos copiados con éxito");
+                    alert("Carrito eliminado con éxito");
                     
                     // Limpiar los campos de entrada
                     document.getElementById('NameClient').value = '';
@@ -323,21 +334,33 @@ transferForm.addEventListener('submit', async (event) => {
             .then(async (docRef) => {
                 alert("Pedido guardado con éxito");
 
-                // Obtener productos desde una subcolección existente
+                // Obtener productos desde la subcolección existente
                 const productosSnapshot = await db.collection('carrito').doc(UID).collection('productos').get();
-                        const batch = db.batch();
+                const batch = db.batch();
 
-                        productosSnapshot.forEach(productoDoc => {
-                            const productoData = productoDoc.data();
-                            const productoRef = docRef.collection('productos').doc(); // Subcolección 'productos' dentro del pedido
-                            batch.set(productoRef, productoData); // Copia cada producto al nuevo documento
-                        });
+                // Copiar productos a la subcolección del pedido
+                productosSnapshot.forEach(productoDoc => {
+                    const productoData = productoDoc.data();
+                    const productoRef = docRef.collection('productos').doc(); // Subcolección 'productos' dentro del pedido
+                    batch.set(productoRef, productoData); // Copia cada producto al nuevo documento
+                });
 
-                        // Confirmar la escritura en Firestore
-                        return batch.commit();
+                // Confirmar la escritura en Firestore
+                await batch.commit();
+
+                alert("Productos copiados con éxito");
+
+                // Eliminar productos de la subcolección del carrito
+                const deleteBatch = db.batch();
+                productosSnapshot.forEach(productoDoc => {
+                    const productoRef = db.collection('carrito').doc(UID).collection('productos').doc(productoDoc.id);
+                    deleteBatch.delete(productoRef); // Eliminar cada documento
+                });
+
+                return deleteBatch.commit(); // Confirmar la eliminación
             })
             .then(() => {
-                alert("Productos copiados con éxito");
+                alert("Carrito eliminado con éxito");
             })
             .catch(error => alert(error.message));
     }
