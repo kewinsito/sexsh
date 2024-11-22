@@ -57,6 +57,7 @@
                         const li = document.createElement('li');
                         li.className = 'product-card'; 
                         li.innerHTML = `
+                            <img src="${doc.data().UrlProduct}" alt="${doc.data().nameProduct}" style="width: 100px; height: auto; border-radius: 9px; margin-bottom: 10px;">
                             <h3>${doc.data().nameProduct}</h3>
                             <p><strong>Precio:</strong> $${doc.data().precioProduct}</p>
                             <p><strong>Categoría:</strong> ${coleccion}</p>
