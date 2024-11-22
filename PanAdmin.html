@@ -8,18 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="header-container">
+    
         <div class="logo">
             <a href="index.html">
                 <img src="loguito.jpeg" alt="Logo">
             </a>
         </div>
         <header>
-            <button onclick="logout()">Cerrar sesión</button>
-        </header>
+        <button onclick="cerrarSesion()">Cerrar sesión</button>
+        <button onclick="window.location.href='index.html'">Volver</button>
+    </header>
     </div>
     <main>
         <h2>Administrador Sex Shop Seduction</h2>
+        <div style="height: 50px; background-color: #000000; margin: 20px 0;">
+
+
+        </div>
         
         <div class="panel-container">
             <div class="añadir panel">
@@ -42,11 +47,11 @@
                 <h3 class="stok-subtitle">Aquí podrás ver tu inventario de productos</h3>
                 <button class="stok-button" onclick="location.href='PanInventario.html'">Ir</button>
             </div>
-            <div class="stok panel">
+            <div class="pedidos panel">
                 <i class="fas fa-edit icon"></i>
-                <h1 class="stok-title">Pedidos</h1>
-                <h3 class="stok-subtitle">Aquí podrás ver los pedidos realizados</h3>
-                <button class="stok-button" onclick="location.href='PanPedido.html'">Ir</button>
+                <h1 class="pedidos-title">Pedidos</h1>
+                <h3 class="pedidos-subtitle">Aquí podrás ver los pedidos realizados</h3>
+                <button class="pedidos-button" onclick="location.href='PanPedido.html'">Ir</button>
             </div>
         </div>
     </main>
