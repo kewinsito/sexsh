@@ -39,49 +39,78 @@
     
     <script src="script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() { 
-          function iniciarPagina() { 
-            const taskList = document.getElementById('Novedades');
-            taskList.innerHTML = '';
-            
-            // Obtiene los datos de la colección 'Novedades' desde la base de datos
-            db.collection('Novedades').get().then(snapshot => {
-              snapshot.forEach(doc => {
-                const li = document.createElement('li');
-                
-                // Obtén los datos del documento
-                const data = doc.data();
-                
-                // Crea y agrega la imagen
-                const img = document.createElement('img');
-                img.src = data.UrlProduct; // Asegúrate de que el campo sea la URL de la imagen
-                img.alt = `Imagen de ${data.nameProduct}`;
-                img.style.width = '100px'; // Ajusta el tamaño de la imagen según tus necesidades
-                li.appendChild(img);
-        
-                // Crea un elemento para mostrar el nombre y precio del producto
-                const info = document.createElement('div');
-                info.textContent = `${data.nameProduct} `;
-                li.appendChild(info);
-                const info2 = document.createElement('div');
-                info2.textContent = `$ ${data.precioProduct}`;
-                li.appendChild(info2);
-        
-                // Botón de añadir al carrito
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Añadir al Carrito';
-                deleteButton.onclick = () => addProductoCarrito(doc.id);
-                li.appendChild(deleteButton);
-        
-        
-                taskList.appendChild(li);
+      document.addEventListener('DOMContentLoaded', function () {
+          function iniciarPagina() {
+              const taskList = document.getElementById('Novedades');
+              taskList.innerHTML = '';
+  
+              // Variable para llevar el conteo de productos añadidos al carrito
+              const productosEnCarrito = {};
+  
+              // Obtiene los datos de la colección 'Novedades' desde la base de datos
+              db.collection('Novedades').get().then(snapshot => {
+                  snapshot.forEach(doc => {
+                      const li = document.createElement('li');
+  
+                      // Obtén los datos del documento
+                      const data = doc.data();
+                      const cant = doc.data().cantidadProduct;
+  
+                      // Inicializar el contador de productos en el carrito para este producto
+                      productosEnCarrito[doc.id] = 0;
+  
+                      // Crea y agrega la imagen
+                      const img = document.createElement('img');
+                      img.src = data.UrlProduct; // Asegúrate de que el campo sea la URL de la imagen
+                      img.alt = `Imagen de ${data.nameProduct}`;
+                      img.style.width = '100px'; // Ajusta el tamaño de la imagen según tus necesidades
+                      li.appendChild(img);
+  
+                      // Crea un elemento para mostrar el nombre y precio del producto
+                      const info = document.createElement('div');
+                      info.textContent = `${data.nameProduct}`;
+                      li.appendChild(info);
+  
+                      const info2 = document.createElement('div');
+                      info2.textContent = `$ ${data.precioProduct}`;
+                      li.appendChild(info2);
+  
+                      // Botón de añadir al carrito
+                      const addButton = document.createElement('button');
+                      addButton.textContent = 'Añadir al Carrito';
+  
+                      // Configurar la lógica del botón
+                      addButton.onclick = () => {
+                          const currentCount = productosEnCarrito[doc.id];
+                          if (currentCount < cant) {
+                              productosEnCarrito[doc.id] += 1; // Incrementar el conteo
+                              addProductoCarrito(doc.id); // Añadir producto al carrito
+  
+                              // Deshabilitar el botón si se alcanza el límite
+                              if (productosEnCarrito[doc.id] === cant) {
+                                  addButton.disabled = true;
+                                  alert('Has añadido la cantidad máxima disponible de este producto.');
+                              }
+                          }
+                      };
+  
+                      // Deshabilitar el botón si no hay stock
+                      if (cant <= 0) {
+                          addButton.disabled = true;
+                          addButton.onclick = () => alert('No hay producto en inventario');
+                      }
+  
+                      li.appendChild(addButton);
+                      taskList.appendChild(li);
+                  });
               });
-            });
           }
-        
+  
           iniciarPagina();
-        });
-        </script>        
+      });
+  </script>
+  
+          
   <!-- Header con imagen como logo y búsqueda -->
   <div class="logo">
     <a href="index.html">
