@@ -42,27 +42,94 @@
     <script src="./firebase/auth.js"></script>
 
     <script>
-        function mostrarTodo() {
-            const taskList = document.getElementById('pedidos');
-            taskList.innerHTML = '';
-            const colecciones = ['pedidos'];
+    function mostrarTodo() {
+    const taskList = document.getElementById('pedidos');
+    taskList.innerHTML = '';
+    const colecciones = ['Pedidos'];
 
-            colecciones.forEach(coleccion => {
-                db.collection(coleccion).get().then(snapshot => {
-                    snapshot.forEach(doc => {
-                        const li = document.createElement('li');
-                        li.className = 'product-card'; 
-                        li.innerHTML = `
-                <h3>${doc.data().nameProduct}</h3>
-                <p><strong>Precio:</strong> $${doc.data().precioProduct}</p>
-                <p><strong>Categoría:</strong> ${coleccion}</p>
-                <p><strong>Cantidad Disponible:</strong> ${doc.data().cantidadProduct}</p>
-            `;
-            taskList.appendChild(li);
-                    });
-                });
-            });
+    colecciones.forEach(coleccion => {
+        db.collection(coleccion).get().then(snapshot => {
+            snapshot.forEach(async doc => {
+                const pedidoData = doc.data();
+                const li = document.createElement('li');
+                li.className = 'product-card';
+
+                // Plantilla para el pedido
+                li.innerHTML = `
+                    <h3>Pedido: ${doc.id}</h3>
+                    <p><strong>Referencia bancaria:</strong> ${pedidoData.numeroAleatorio || 'error'}</p>
+                    <p><strong>Nombre del Cliente:</strong> ${pedidoData.NameClient || 'Sin nombre'}</p>
+                    <p><strong>Total:</strong> $${pedidoData.total || '0.00'}</p>
+                    <p><strong>Forma de Entrega:</strong> ${pedidoData.formaDentrega ? 'A domicilio' : 'En tienda'}</p>
+                    <p><strong>codigo postal:</strong> ${pedidoData.postalCode || 'No Tiene'}</p>
+                    <p><strong>Dirección:</strong> ${pedidoData.address || 'Sin direccion'}</p>
+                    <p><strong>Telefono:</strong> ${pedidoData.Telefono || '0000000000'}</p>
+                    <h4>Productos:</h4>
+                    <ul id="productos-${doc.id}" class="productos-list">
+                        <li>Cargando productos...</li>
+                    </ul>
+                    <button class="confirmar-btn" data-id="${doc.id}">Confirmar</button>
+                `;
+
+                taskList.appendChild(li);
+
+                // Obtener la subcolección 'productos'
+const productosList = document.getElementById(`productos-${doc.id}`);
+const productosSnapshot = await db.collection(coleccion).doc(doc.id).collection('productos').get();
+productosList.innerHTML = ''; // Limpiar el mensaje de carga
+
+// Iterar sobre los documentos de la subcolección 'productos'
+for (const productoDoc of productosSnapshot.docs) {
+    const productoData = productoDoc.data();
+
+    // Buscar el producto en las colecciones especificadas
+    const colecciones = ['Toys', 'Lenceria', 'Novedades'];
+    let productoEncontrado = null;
+
+    for (const coleccion of colecciones) {
+        const productoSnapshot = await db.collection(coleccion).doc(productoData.productoId).get();
+        if (productoSnapshot.exists) {
+            productoEncontrado = productoSnapshot.data();
+            productoEncontrado.categoria = coleccion; // Añadimos la categoría al producto
+            break;
         }
+    }
+
+    // Si se encuentra el producto, mostrarlo en la lista
+    if (productoEncontrado) {
+        const productoItem = document.createElement('li');
+        productoItem.innerHTML = `
+            <img src="${productoEncontrado.UrlProduct}" alt="${productoEncontrado.nameProduct}" style="width: 100px; height: auto; border-radius: 9px; margin-bottom: 10px;">
+            <p><strong>Producto:</strong> ${productoEncontrado.nameProduct}</p>
+            <p><strong>Precio:</strong> $${productoEncontrado.precioProduct}</p>
+            <p><strong>Categoría:</strong> ${productoEncontrado.categoria}</p>
+            <p><strong>Cantidad:</strong> ${productoData.cantidad}</p>
+        `;
+        productosList.appendChild(productoItem); // Añadir el producto a la lista
+    } else {
+        const productoItem = document.createElement('li');
+        productoItem.innerHTML = `<p><strong>Producto no encontrado:</strong> ID ${productoData.productoId}</p>`;
+        productosList.appendChild(productoItem);
+    }
+}
+
+
+                // Evento para el botón confirmar
+                const confirmarBtn = li.querySelector('.confirmar-btn');
+                confirmarBtn.addEventListener('click', () => confirmarPedido(doc.id));
+            });
+        });
+    });
+}
+
+// Función para manejar la confirmación del pedido
+function confirmarPedido(pedidoId) {
+    if (confirm(`¿Estás seguro de confirmar el pedido ${pedidoId}?`)) {
+        // Aquí puedes realizar acciones adicionales, como actualizar el estado del pedido
+        alert(`Pedido ${pedidoId} confirmado.`);
+    }
+}
+
     </script>
 </body>
 </html>

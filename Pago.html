@@ -307,7 +307,7 @@ transferForm.addEventListener('submit', async (event) => {
         if (NameClient === "" || address === "" || Telefono === "" || postalCode === "") {
             alert("Todos los campos deben estar llenos.");
         } else {
-            db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, formaDentrega })
+            db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, formaDentrega,numeroAleatorio })
                 .then(async (docRef) => {
                     alert("Pedido guardado con éxito");
 
