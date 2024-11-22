@@ -245,51 +245,80 @@
         }
     });
 
-    // Manejo del formulario
     transferForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+    event.preventDefault();
 
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
 
-        // Obtener el valor del total desde la URL
-        const total = getQueryParam('total');
+    // Obtener el valor del total desde la URL
+    const total = getQueryParam('total');
 
-        if (deliveryOption.value === 'home') {
-            const NameClient = document.getElementById('NameClient').value;
-            const address = document.getElementById('address').value;
-            const Telefono = document.getElementById('Telefono').value;
-            const postalCode = document.getElementById('postalCode').value;
-            let formaDentrega=true;
+    // Ejemplo: productos a guardar en la subcolección
+    const productos = [
+        { nombre: "Producto 1", cantidad: 2, precio: 100 },
+        { nombre: "Producto 2", cantidad: 1, precio: 50 }
+    ];
 
-            if (NameClient === "" || address === "" || Telefono === "" || postalCode === "") {
-                alert("Todos los campos deben estar llenos.");
-            } else {
-                // Agregar el pedido a la base de datos (Firebase Firestore en este caso)
-                db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, numeroAleatorio, formaDentrega})
-                    .then(docRef => {
-                        alert("Guardado con éxito");
-                        // Limpiar los campos de entrada
-                        document.getElementById('NameClient').value = '';
-                        document.getElementById('address').value = '';
-                        document.getElementById('Telefono').value = '';
-                        document.getElementById('postalCode').value = '';
-                    })
-                    .catch(error => alert(error.message));
-            }
+    if (deliveryOption.value === 'home') {
+        const NameClient = document.getElementById('NameClient').value;
+        const address = document.getElementById('address').value;
+        const Telefono = document.getElementById('Telefono').value;
+        const postalCode = document.getElementById('postalCode').value;
+        let formaDentrega = true;
+
+        if (NameClient === "" || address === "" || Telefono === "" || postalCode === "") {
+            alert("Todos los campos deben estar llenos.");
         } else {
-            let formaDentrega=false;
-            db.collection('Pedidos').add({total, numeroAleatorio, formaDentrega})
-                    .then(docRef => {
-                        alert("Guardado con éxito");
-                        // Limpiar los campos de entrada
-                        
-                    })
-                    .catch(error => alert(error.message));
+            // Agregar el pedido a la base de datos (Firebase Firestore en este caso)
+            db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, formaDentrega })
+                .then(docRef => {
+                    alert("Pedido guardado con éxito");
+
+                    // Agregar productos a la subcolección 'productos'
+                    const batch = db.batch();
+                    productos.forEach(producto => {
+                        const productoRef = docRef.collection('productos').doc();
+                        batch.set(productoRef, producto);
+                    });
+
+                    return batch.commit();
+                })
+                .then(() => {
+                    alert("Productos guardados con éxito");
+
+                    // Limpiar los campos de entrada
+                    document.getElementById('NameClient').value = '';
+                    document.getElementById('address').value = '';
+                    document.getElementById('Telefono').value = '';
+                    document.getElementById('postalCode').value = '';
+                })
+                .catch(error => alert(error.message));
         }
-    });
+    } else {
+        let formaDentrega = false;
+        db.collection('Pedidos').add({ total, formaDentrega })
+            .then(docRef => {
+                alert("Pedido guardado con éxito");
+
+                // Agregar productos a la subcolección 'productos'
+                const batch = db.batch();
+                productos.forEach(producto => {
+                    const productoRef = docRef.collection('productos').doc();
+                    batch.set(productoRef, producto);
+                });
+
+                return batch.commit();
+            })
+            .then(() => {
+                alert("Productos guardados con éxito");
+            })
+            .catch(error => alert(error.message));
+    }
+}
+    );
 </script>
 
 
