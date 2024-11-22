@@ -28,6 +28,9 @@
     </header>
 
     <main>
+        <!-- Campo de búsqueda -->
+        <input type="search" id="search-input" placeholder="Buscar producto..." oninput="buscarProducto()">
+        
         <button class="inventario" onclick="mostrarTodo()">Mostrar Todo</button>
         <h2>Inventario de Productos</h2>
         <div class="product-list-container-inventario">
@@ -42,6 +45,7 @@
     <script src="./firebase/auth.js"></script>
 
     <script>
+        // Mostrar todos los productos
         function mostrarTodo() {
             const taskList = document.getElementById('inventario');
             taskList.innerHTML = '';
@@ -53,15 +57,34 @@
                         const li = document.createElement('li');
                         li.className = 'product-card'; 
                         li.innerHTML = `
-                <h3>${doc.data().nameProduct}</h3>
-                <p><strong>Precio:</strong> $${doc.data().precioProduct}</p>
-                <p><strong>Categoría:</strong> ${coleccion}</p>
-                <p><strong>Cantidad Disponible:</strong> ${doc.data().cantidadProduct}</p>
-            `;
-            taskList.appendChild(li);
+                            <h3>${doc.data().nameProduct}</h3>
+                            <p><strong>Precio:</strong> $${doc.data().precioProduct}</p>
+                            <p><strong>Categoría:</strong> ${coleccion}</p>
+                            <p><strong>Cantidad Disponible:</strong> ${doc.data().cantidadProduct}</p>
+                        `;
+                        li.setAttribute('data-name', doc.data().nameProduct.toLowerCase());  // Guardamos el nombre del producto en minúsculas para la búsqueda
+                        taskList.appendChild(li);
                     });
                 });
             });
+        }
+
+        // Buscar productos
+        function buscarProducto() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const taskList = document.getElementById('inventario');
+            const productos = taskList.getElementsByTagName('li');  // Obtener todos los elementos de la lista
+
+            for (let i = 0; i < productos.length; i++) {
+                const producto = productos[i];
+                const nombreProducto = producto.getAttribute('data-name');  // Obtener el nombre guardado en minúsculas
+
+                if (nombreProducto.includes(searchInput)) {
+                    producto.style.display = '';  // Mostrar el producto si coincide
+                } else {
+                    producto.style.display = 'none';  // Ocultar el producto si no coincide
+                }
+            }
         }
     </script>
 </body>
