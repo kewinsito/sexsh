@@ -129,7 +129,7 @@ function confirmarPedido(pedidoId) {
         const pedidoRef = db.collection('Pedidos').doc(pedidoId);
 
         // Eliminar documentos en la subcolección
-        pedidoRef.collection('subcoleccion').get()
+        pedidoRef.collection('productos').get()
             .then(snapshot => {
                 const deletePromises = [];
 

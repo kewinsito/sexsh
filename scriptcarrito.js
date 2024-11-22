@@ -132,7 +132,7 @@ function quitarDelCarrito(uid, quitar) {
 }
 function irPagar() {
     const subtotalElement = document.getElementById('subtotal');
-    const subtotal = parseInt(subtotalElement.textContent, 10); // Convierte el valor del subtotal a entero
+    const subtotal = subtotalElement.textContent; // Convierte el valor del subtotal a entero
     if (isNaN(subtotal)) {
         alert('El subtotal no es un número válido');
         return;
