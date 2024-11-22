@@ -243,14 +243,34 @@
     // Declarar número aleatorio como variable global
     let numeroAleatorio;
 
-    // Función para generar y mostrar un número aleatorio
-    function generarNumeroAleatorio() {
-        numeroAleatorio = Math.floor(Math.random() * 100001); // Número entre 0 y 10000
-        document.getElementById('numero').textContent = `Número generado: ${numeroAleatorio}`;
+   // Función para generar y verificar un número aleatorio único
+async function generarNumeroAleatorio() {
+    let numeroUnicoEncontrado = false;
+
+    while (!numeroUnicoEncontrado) {
+        // Generar un número aleatorio entre 0 y 100000
+        numeroAleatorio = Math.floor(Math.random() * 100001);
+
+        // Verificar si el número existe en la colección 'Pedidos'
+        const snapshot = await db.collection('Pedidos').where('numeroAleatorio', '==', numeroAleatorio).get();
+
+        // Si no se encuentra el número, es único
+        if (snapshot.empty) {
+            numeroUnicoEncontrado = true;
+        }
     }
 
-    // Generar el número aleatorio al cargar la página
-    window.onload = generarNumeroAleatorio;
+    // Mostrar el número generado en la página
+    document.getElementById('numero').textContent = `Número generado: ${numeroAleatorio}`;
+    
+    return numeroAleatorio; // Devolver el número único para usarlo posteriormente
+}
+
+// Generar el número aleatorio al cargar la página
+window.onload = async () => {
+    const numeroUnico = await generarNumeroAleatorio();
+    console.log(`Número único generado: ${numeroUnico}`);
+};
 
     // Mostrar u ocultar campos según la opción seleccionada
     deliveryOption.addEventListener('change', () => {
@@ -330,7 +350,7 @@ transferForm.addEventListener('submit', async (event) => {
         }
     } else {
         let formaDentrega = false;
-        db.collection('Pedidos').add({ total, formaDentrega })
+        db.collection('Pedidos').add({ total, formaDentrega,numeroAleatorio })
             .then(async (docRef) => {
                 alert("Pedido guardado con éxito");
 
