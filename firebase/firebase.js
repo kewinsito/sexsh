@@ -103,7 +103,8 @@ function añadir() {
   const UrlProduct = document.getElementById('product-image').value;
   const nameProduct = document.getElementById('product-name').value;
   const precioProduct = document.getElementById('product-price').value;
-  const cantidadProduct = document.getElementById('product-cant').value;
+  const cantidadProductStr = document.getElementById('product-cant').value;
+  const cantidadProduct = parseInt(cantidadProductStr, 10);
 if(UrlProduct=="" || nameProduct=="" || precioProduct=="" || cantidadProduct==""){
     alert("todos los campos deben estar llenitos")
 }else{

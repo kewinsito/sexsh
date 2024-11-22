@@ -123,38 +123,62 @@ for (const productoDoc of productosSnapshot.docs) {
     });
 }
 
-// Función para manejar la confirmación del pedido
 function confirmarPedido(pedidoId) {
     if (confirm(`¿Estás seguro de confirmar el pedido ${pedidoId}?`)) {
         const pedidoRef = db.collection('Pedidos').doc(pedidoId);
 
-        // Eliminar documentos en la subcolección
+        // Obtener los productos en la subcolección del pedido
         pedidoRef.collection('productos').get()
             .then(snapshot => {
-                const deletePromises = [];
+                const updatePromises = [];
 
                 snapshot.forEach(doc => {
-                    deletePromises.push(doc.ref.delete());
+                    const productoData = doc.data();
+                    const productoId = productoData.productoId;
+                    const cantidadPedida = productoData.cantidad;
+
+                    // Buscar el producto en las colecciones
+                    const colecciones = ['Toys', 'Lenceria', 'Novedades'];
+
+                    colecciones.forEach(coleccion => {
+                        updatePromises.push(
+                            db.collection(coleccion).doc(productoId).get().then(productoDoc => {
+                                if (productoDoc.exists) {
+                                    const producto = productoDoc.data();
+                                    const nuevaCantidad = (producto.cantidadProduct || 0) - cantidadPedida;
+
+                                    // Asegurar que no quede negativo
+                                    if (nuevaCantidad >= 0) {
+                                        return db.collection(coleccion).doc(productoId).update({
+                                            cantidadProduct: nuevaCantidad
+                                        });
+                                    } else {
+                                        console.warn(`Stock insuficiente para el producto ${producto.nameProduct} en la colección ${coleccion}`);
+                                    }
+                                }
+                            })
+                        );
+                    });
                 });
 
-                // Esperar a que todas las subcolecciones se eliminen
-                return Promise.all(deletePromises);
+                // Esperar a que todas las actualizaciones de productos se completen
+                return Promise.all(updatePromises);
             })
             .then(() => {
-                // Eliminar el documento principal
+                // Eliminar el pedido y su subcolección
                 return pedidoRef.delete();
             })
             .then(() => {
-                alert(`Pedido ${pedidoId} confirmado y eliminado, incluyendo su subcolección.`);
-                // Opcional: Actualizar la interfaz
-                mostrarTodo();
+                alert(`Pedido ${pedidoId} confirmado y eliminado. Cantidades actualizadas.`);
+                mostrarTodo(); // Recargar la lista de pedidos
             })
             .catch(error => {
-                console.error(`Error al eliminar el pedido ${pedidoId} y su subcolección:`, error);
+                console.error(`Error al confirmar el pedido ${pedidoId}:`, error);
                 alert(`Hubo un problema al confirmar el pedido. Por favor, inténtalo de nuevo.`);
             });
     }
 }
+
 
 
     </script>
