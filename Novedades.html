@@ -95,7 +95,7 @@
                       };
   
                       // Deshabilitar el botón si no hay stock
-                      if (cant <= 0) {
+                      if (cant === 0) {
                           addButton.disabled = true;
                           addButton.onclick = () => alert('No hay producto en inventario');
                       }
