@@ -287,37 +287,70 @@ function addProductoCarrito(productoId) {
     // Referencia al carrito del usuario autenticado en Firestore
     const carritoRef = firebase.firestore().collection('carrito').doc(user.uid).collection('productos');
 
-    // Buscar si el producto ya existe en el carrito del usuario
-    carritoRef.where('productoId', '==', productoId).get()
-        .then((querySnapshot) => {
-            if (!querySnapshot.empty) {
-                // Si el producto ya está en el carrito, aumenta la cantidad
-                const docRef = querySnapshot.docs[0].ref;
-                const currentCantidad = querySnapshot.docs[0].data().cantidad;
+    // Consultar el inventario del producto
+    const colecciones = ['Toys', 'Lenceria', 'Novedades']; // Colecciones donde se almacena el inventario
+    let cantidadInventario = 0;
 
-                docRef.update({
-                    cantidad: currentCantidad + 1
-                }).then(() => {
-                    alert("Cantidad actualizada en el carrito");
-                }).catch((error) => {
-                    console.error("Error al actualizar la cantidad en el carrito: ", error);
-                });
-            } else {
-                // Si el producto no está en el carrito, lo agrega con cantidad inicial de 1
-                carritoRef.add({
-                    productoId: productoId,
-                    cantidad: 1,
-                    fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(() => {
-                    alert("Producto añadido al carrito");
-                }).catch((error) => {
-                    console.error("Error al añadir el producto al carrito: ", error);
-                });
+    Promise.all(colecciones.map(coleccion =>
+        firebase.firestore().collection(coleccion).doc(productoId).get()
+    )).then(snapshots => {
+        // Verificar en cuál colección está el producto
+        snapshots.forEach(snapshot => {
+            if (snapshot.exists) {
+                cantidadInventario = snapshot.data().cantidadProduct;
             }
-        })
-        .catch((error) => {
-            console.error("Error al buscar el producto en el carrito: ", error);
         });
+
+        if (cantidadInventario === 0) {
+            alert("El producto no está disponible en el inventario.");
+            return;
+        }
+
+        // Verificar si el producto ya está en el carrito
+        carritoRef.where('productoId', '==', productoId).get()
+            .then((querySnapshot) => {
+                let currentCantidad = 0;
+
+                if (!querySnapshot.empty) {
+                    // Si el producto ya está en el carrito, obtener la cantidad actual
+                    currentCantidad = querySnapshot.docs[0].data().cantidad;
+                }
+
+                // Verificar si la cantidad total excede el inventario
+                if (currentCantidad + 1 > cantidadInventario) {
+                    alert(`No puedes añadir más de ${cantidadInventario} unidades al carrito.`);
+                } else {
+                    if (!querySnapshot.empty) {
+                        // Actualizar la cantidad si ya existe en el carrito
+                        const docRef = querySnapshot.docs[0].ref;
+
+                        docRef.update({
+                            cantidad: currentCantidad + 1
+                        }).then(() => {
+                            alert("Cantidad actualizada en el carrito");
+                        }).catch((error) => {
+                            console.error("Error al actualizar la cantidad en el carrito: ", error);
+                        });
+                    } else {
+                        // Agregar el producto al carrito si no existe
+                        carritoRef.add({
+                            productoId: productoId,
+                            cantidad: 1,
+                            fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
+                        }).then(() => {
+                            alert("Producto añadido al carrito");
+                        }).catch((error) => {
+                            console.error("Error al añadir el producto al carrito: ", error);
+                        });
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error("Error al buscar el producto en el carrito: ", error);
+            });
+    }).catch(error => {
+        console.error("Error al consultar el inventario: ", error);
+    });
 }
 function añadirCarritoSS(productoId) {
     // Verificar si el usuario ha iniciado sesión
@@ -331,38 +364,72 @@ function añadirCarritoSS(productoId) {
     // Referencia al carrito del usuario autenticado en Firestore
     const carritoRef = firebase.firestore().collection('carrito').doc(user.uid).collection('productos');
 
-    // Buscar si el producto ya existe en el carrito del usuario
-    carritoRef.where('productoId', '==', productoId).get()
-        .then((querySnapshot) => {
-            if (!querySnapshot.empty) {
-                // Si el producto ya está en el carrito, aumenta la cantidad
-                const docRef = querySnapshot.docs[0].ref;
-                const currentCantidad = querySnapshot.docs[0].data().cantidad;
+    // Colecciones donde se almacena el inventario
+    const colecciones = ['Toys', 'Lenceria', 'Novedades'];
+    let cantidadInventario = 0;
 
-                docRef.update({
-                    cantidad: currentCantidad + 1
-                }).then(() => {
-                    alert("Cantidad actualizada en el carrito");
-                }).catch((error) => {
-                    console.error("Error al actualizar la cantidad en el carrito: ", error);
-                });
-            } else {
-                // Si el producto no está en el carrito, lo agrega con cantidad inicial de 1
-                carritoRef.add({
-                    productoId: productoId,
-                    cantidad: 1,
-                    fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(() => {
-                    alert("Producto añadido al carrito");
-                }).catch((error) => {
-                    alert("Error al añadir el producto al carrito: ", error);
-                });
+    // Consultar el inventario del producto
+    Promise.all(colecciones.map(coleccion =>
+        firebase.firestore().collection(coleccion).doc(productoId).get()
+    )).then(snapshots => {
+        // Buscar en qué colección está el producto y obtener su inventario
+        snapshots.forEach(snapshot => {
+            if (snapshot.exists) {
+                cantidadInventario = snapshot.data().cantidadProduct;
             }
-        })
-        .catch((error) => {
-            alert("Error al buscar el producto en el carrito: ", error);
         });
+
+        if (cantidadInventario === 0) {
+            alert("El producto no está disponible en el inventario.");
+            return;
+        }
+
+        // Verificar si el producto ya existe en el carrito del usuario
+        carritoRef.where('productoId', '==', productoId).get()
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    // Si el producto ya está en el carrito, obtener la cantidad actual
+                    const docRef = querySnapshot.docs[0].ref;
+                    const currentCantidad = querySnapshot.docs[0].data().cantidad;
+
+                    // Verificar si al aumentar la cantidad se excede el inventario
+                    if (currentCantidad + 1 > cantidadInventario) {
+                        alert(`No puedes añadir más de ${cantidadInventario} unidades al carrito.`);
+                    } else {
+                        // Actualizar la cantidad en el carrito
+                        docRef.update({
+                            cantidad: currentCantidad + 1
+                        }).then(() => {
+                            alert("Cantidad actualizada en el carrito");
+                        }).catch((error) => {
+                            console.error("Error al actualizar la cantidad en el carrito: ", error);
+                        });
+                    }
+                } else {
+                    // Si el producto no está en el carrito, agregarlo con cantidad inicial de 1
+                    if (cantidadInventario >= 1) {
+                        carritoRef.add({
+                            productoId: productoId,
+                            cantidad: 1,
+                            fechaAñadido: firebase.firestore.FieldValue.serverTimestamp()
+                        }).then(() => {
+                            alert("Producto añadido al carrito");
+                        }).catch((error) => {
+                            alert("Error al añadir el producto al carrito: ", error);
+                        });
+                    } else {
+                        alert("No hay suficiente inventario para añadir este producto.");
+                    }
+                }
+            })
+            .catch((error) => {
+                alert("Error al buscar el producto en el carrito: ", error);
+            });
+    }).catch(error => {
+        console.error("Error al consultar el inventario: ", error);
+    });
 }
+
 // Configurar la visibilidad de los enlaces al iniciar o cerrar sesión
 firebase.auth().onAuthStateChanged(user => {
     const linkIniciarSesion = document.getElementById('linkIniciarSesion');
