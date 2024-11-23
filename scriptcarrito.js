@@ -1,23 +1,4 @@
-function updateTotal(element) {
-    // Obtener la fila del producto
-    const row = element.closest('tr');
-    
-    // Obtener el precio base del producto
-    const price = parseInt(row.querySelector('.price').getAttribute('data-price'));
-
-    // Obtener la cantidad ingresada por el usuario
-    const quantity = parseInt(element.value);
-
-    // Calcular el total para este producto
-    const total = price * quantity;
-
-    // Actualizar el campo de total en la fila
-    row.querySelector('.total').innerText = total.toLocaleString('es-CO');
-
-    // Actualizar el subtotal general
-    updateSubtotal();
-}
-function updateCantidad(uid, docId, nuevaCantidad) {
+function updateCantidad(uid, docId, nuevaCantidad, productoId) {
     // Verificar que el valor sea válido
     const cantidad = parseInt(nuevaCantidad, 10);
     if (isNaN(cantidad) || cantidad < 1) {
@@ -25,15 +6,46 @@ function updateCantidad(uid, docId, nuevaCantidad) {
         return;
     }
 
-    // Actualizar la cantidad en la base de datos
-    db.collection('carrito').doc(uid).collection('productos').doc(docId).update({
-        cantidad: cantidad
-    }).then(() => {
-        console.log("Cantidad actualizada exitosamente:", cantidad);
-        // Opcional: Actualizar el subtotal dinámicamente si es necesario
-        updateSubtotal();
-    }).catch(error => {
-        console.error("Error al actualizar la cantidad:", error);
+    const colecciones = ['Toys', 'Lenceria', 'Novedades'];
+
+    colecciones.forEach(coleccion => {
+        db.collection(coleccion).doc(productoId).get().then(doc => {
+            if (doc.exists) {
+                const cantidadDB = doc.data().cantidadProduct;
+
+                // Obtener el elemento del input
+                const productCantElement = document.getElementById('cantidadProductoos');
+                if (productCantElement) {
+                    // Validar en tiempo real si la cantidad excede el inventario
+                    productCantElement.addEventListener('input', (event) => {
+                        const valor = parseInt(event.target.value, 10);
+
+                        if (isNaN(valor) || valor > cantidadDB) {
+                            // Si excede el inventario, restablecer al máximo permitido
+                            event.target.value = cantidadDB;
+                            alert(`No puedes pedir más de ${cantidadDB} unidades.`);
+                        }
+                    });
+
+                    // Si la cantidad está dentro del rango permitido, actualizar en la base de datos
+                    if (cantidad <= cantidadDB) {
+                        db.collection('carrito').doc(uid).collection('productos').doc(docId).update({
+                            cantidad: cantidad
+                        }).then(() => {
+                            console.log("Cantidad actualizada exitosamente:", cantidad);
+                            // Opcional: Actualizar el subtotal dinámicamente si es necesario
+                            updateSubtotal();
+                        }).catch(error => {
+                            console.error("Error al actualizar la cantidad:", error);
+                        });
+                    } else {
+                        console.warn(`La cantidad solicitada (${cantidad}) excede el inventario disponible (${cantidadDB}).`);
+                    }
+                }
+            }
+        }).catch(error => {
+            console.error("Error al consultar el inventario:", error);
+        });
     });
 }
 
@@ -94,10 +106,11 @@ function mostrarCarrito(uid) {
                                 <td>$<span class="price" data-price="${producto.precioProduct}">${producto.precioProduct.toLocaleString()}</span></td>
                                 <td>
                                     <input type="number" 
+                                           id="cantidadProductoos"
                                            class="quantity-input" 
                                            value="${cantidad || 1}" 
                                            min="1" 
-                                           onchange="updateCantidad('${uid}', '${quitar}', this.value); updateSubtotal();">
+                                           onchange="updateCantidad('${uid}', '${quitar}', this.value,'${productoId}'); updateSubtotal();">
                                 </td>
                                 <td>$<span class="total">${precioTotalProducto.toLocaleString()}</span></td>
                             `;
