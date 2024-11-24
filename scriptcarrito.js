@@ -127,7 +127,7 @@ function mostrarCarrito(uid) {
         // Esperar a que todas las promesas de productos se resuelvan
         Promise.all(productoPromises).then(() => {
             // Actualizar el subtotal en el DOM después de cargar todos los productos
-            document.getElementById('subtotal').innerText = `${subtotal.toLocaleString('es-CO')}`;
+            document.getElementById('subtotal').innerText = `${subtotal.toLocaleString()}`;
         });
     }).catch(error => {
         console.error("Error al cargar el carrito:", error);
