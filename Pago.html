@@ -39,6 +39,9 @@
         .form-group {
             margin-bottom: 20px;
         }
+        .form-group.nu {
+            color: #0056b3;
+        }
 
         .form-group label {
             display: block;
@@ -88,15 +91,15 @@
 
         #totalDisplay {
             margin: 15px 0;
-            font-size: 1.2rem;
-            color: #27ae60;
+            font-size: 1.4rem;
+            color: #12984a;
             text-align: center;
         }
 
         #Tienda p {
             background-color: #fdf6ec;
             padding: 15px;
-            border-left: 4px solid #f39c12;
+            border-left: 4px solid #f50076;
             font-size: 0.95rem;
             border-radius: 4px;
         }
@@ -138,7 +141,7 @@
             const totalLabel = document.getElementById('total');
 
             if (total) {
-                const totalText = `Total a pagar: ${total} MXN`;
+                const totalText = `Total a pagar: $${total} MXN`;
                 if (totalDisplay) totalDisplay.textContent = totalText;
                 if (totalLabel) totalLabel.textContent = `${total} MXN`;
             } else {
@@ -148,9 +151,10 @@
         });
     </script>
 
-<h1>Formulario de Transferencia</h1>
+<h1>Datos de Transferencia y Envío</h1>
 
 <form id="transferForm">
+    <p> Por favor transfiere tu pago a la siguiente cuenta</p>
     <div class="form-group">
         <label for="cardNumber">Número de tarjeta</label>
         <label for="">4152 3142 0909 8774</label>
@@ -162,15 +166,15 @@
     </div>
     <div class="form-group">
         <label for="titular">Titular</label>
-        <label for="">Sandra Yareth Romero Cano</label>
+        <label for="">Beatriz Abigail Aguirre Barrón</label>
     </div>
 
     <div class="form-group"> 
-        <label for="amount">Monto transferido</label>
-        <label id="total"></label>
+        <label for="amount">Monto </label>
+        <label id="total">$</label>
     </div>
     <div id="totalDisplay"></div>
-    <p>referencia bancaria</p>
+    <p>Has tu pago con la siguiente Referencia bancaria</p>
     <label for="" id="numero">generando numero...</label>
     <div class="form-group">
         <label for="receipt">Subir comprobante de transferencia</label>
@@ -186,7 +190,8 @@
     </div>
 
     <div id="Tienda" class="tiendahid">
-        <p>Puede recoger su pedido en nuestra tienda física. Nos encontramos en la colonia Centro, 33800 Hidalgo del Parral, Chih. ¡Gracias por su preferencia!</p>
+        <p>Puede recoger su pedido despúes de realizar el pago en nuestra tienda física. Nos encontramos en la colonia Centro, 33800 Hidalgo del Parral, Chih. En horario de Horario de  9:00am a 7:00pm ¡Gracias por su preferencia!</p>
+        <p>Su número de referencia bancaria es su identificador de pedido.<br>    Recuerde llevar su numero para recogerlo.</p>
 
     </div>
 
@@ -261,7 +266,7 @@ async function generarNumeroAleatorio() {
     }
 
     // Mostrar el número generado en la página
-    document.getElementById('numero').textContent = `Número generado: ${numeroAleatorio}`;
+    document.getElementById('numero').textContent = `Número de Referencia generado: ${numeroAleatorio}`;
     
     return numeroAleatorio; // Devolver el número único para usarlo posteriormente
 }

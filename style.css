@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #2e2e2e;
+    background-color: #1f1e1e;
     /* Fondo blanco */
     color: #ee1858;
 }
@@ -91,7 +91,7 @@ nav a {
     color: #ee1858; /* Color de texto */
     text-decoration: none; /* Sin subrayado */
     margin: 0 15px;
-    font-size: 20px;
+    font-size: 21px;
     padding: 10px 15px; /* Espaciado interno */
     border-radius: 5px; /* Bordes redondeados */
     transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
@@ -100,10 +100,10 @@ nav a {
 
 /* Estilo para el estado hover */
 nav a:hover, nav a.active {
-    background-color: rgba(199, 37, 118, 0.1); /* Fondo al pasar el cursor */
+    background-color: rgba(182, 32, 107, 0.1); /* Fondo al pasar el cursor */
     transform: translateY(-3px); /* Levanta el enlace ligeramente */
     text-decoration: none; /* Sin subrayado en hover */
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 
@@ -129,7 +129,7 @@ main h2,p {
 .toys, .lend {
     background-size: cover; /* Ajusta la imagen para cubrir el área completa */
     height: 310px;
-    width: 100%;
+    width: 89%;
     text-align: center;
     padding: 20px;
     border-radius: 8px;
@@ -150,22 +150,33 @@ main h2,p {
 }
 
 /* Estilos comunes para títulos */
-.toys-title, .lend-title {
+.toys-title{
     font-size: 48px;
-    color: #d20b6e;
+    color: #000000;
     margin-bottom: 10px;
 }
-
+.lend-title {
+    font-size: 48px;
+    color: #ff007f;
+    margin-bottom: 10px;
+}
 /* Estilos comunes para subtítulos */
-.toys-subtitle, .lend-subtitle {
-    font-size: 24px;
-    color: #ffffff;
+.toys-subtitle {
+    font-size: 26px;
+    color:#ff007f;
     margin-bottom: 15px;
     text-align: center; /* Asegura que el texto esté centrado */
     line-height: 1.5; /* Establece un interlineado consistente */
     font-weight: normal; /* Asegura que el grosor de la fuente sea el mismo */
 }
-
+.lend-subtitle {
+    font-size: 24px;
+    color: #e3dcdc;
+    margin-bottom: 15px;
+    text-align: center; /* Asegura que el texto esté centrado */
+    line-height: 1.5; /* Establece un interlineado consistente */
+    font-weight: normal; /* Asegura que el grosor de la fuente sea el mismo */
+}
 /* Estilos comunes para botones */
 .toys-button, .lend-button {
     background-color: #000;
@@ -433,3 +444,13 @@ footer a {
   #adminButton:hover {
     transform: scale(1.1); /* Efecto de hover para hacerlo más atractivo */
   }
+  /* Responsive design: stack pagination on smaller screens */
+@media (max-width: 600px) {
+    .pagination {
+        flex-wrap: wrap;
+    }
+
+    .pagination a {
+        margin: 5px;
+    }
+}

@@ -103,7 +103,7 @@ nav a:hover {
     background-color: rgba(199, 37, 118, 0.1); /* Fondo al pasar el cursor */
     transform: translateY(-3px); /* Levanta el enlace ligeramente */
     text-decoration: none; /* Sin subrayado en hover */
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 /*diseño del titulo*/
 .titulo{
@@ -193,7 +193,7 @@ footer a {
  .copyright{
     width: 100%;
     text-align: right;
-    font-size: 14px;
+    font-size: 15px;
     color: #ee1858;
     font-size: 12px;
     color: #a5a1a1;
@@ -232,7 +232,7 @@ footer a {
 
 .container .product:hover {
     border-color: #e90c7b; /* Color del margen al pasar el cursor */
-    transform: scale(1.15);
+    transform: scale(1.05);
 }
 
 .container .product:hover h3,
@@ -248,8 +248,8 @@ footer a {
 }
 
 .container .product:hover .add-to-cart {
-    background-color: #e4549c; /* Color de fondo del botón al pasar el cursor */
-    color: #b5b1b1; /* Color del texto del botón al pasar el cursor */
+    background-color: #e84998; /* Color de fondo del botón al pasar el cursor */
+    color: #000000; /* Color del texto del botón al pasar el cursor */
     border-color: #e90c7b; /* Color del borde del botón */
 }
 
@@ -257,21 +257,64 @@ footer a {
     color: white; /* Color de las letras del label */
 }
 
-.custom-select select {
-    background-color: black; /* Fondo negro inicialmente */
-    color: white; /* Letras blancas inicialmente */
-    border: 2px solid black; /* Borde negro */
-    padding: 5px;
+/*select*/
+.select-container {
+    display: flex;
+    gap: 20px;
+}
+
+/* General styles for custom select */
+.custom-select {
+    position: relative;
+    width: 250px;
+    height: 45px;
+    background-color: #000000;
     border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+    border: 2px solid #f400a1;
+    overflow: hidden;
 }
 
-.custom-select select:hover {
-    background-color: #fe007f; /* Fondo rosa al pasar el cursor */
-    color: black; /* Letras negras al pasar el cursor */
-    border-color: #ff0080; /* Borde rosa al pasar el cursor */
+.custom-select select {
+    width: 100%;
+    height: 100%;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
+/* Arrow for custom select */
+.custom-select::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Hover and focus effects */
+.custom-select:hover {
+    border-color: #ff00ff;
+}
+
+.custom-select select:focus {
+    border-color: #ff00ff;
+    box-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+/* Optional styling for selected options */
+.custom-select select option {
+    background-color: white;
+    color: #333;
+}
 
 /*estilos probando*/
 .container {
@@ -412,8 +455,8 @@ footer a {
     margin: 0 5px;
     border-radius: 5px;
     font-size: 16px;
-    border: 1px solid #ddd;
-    background-color: #f0f0f0;
+    border: 1px solid #f540ad;
+    background-color: #f574a6;
     transition: background-color 0.3s, color 0.3s;
 }
 
