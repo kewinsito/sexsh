@@ -146,9 +146,9 @@ function quitarDelCarrito(uid, quitar) {
 function irPagar() {
     const subtotalElement = document.getElementById('subtotal');
     const subtotal = subtotalElement.textContent; // Convierte el valor del subtotal a entero
-    if (isNaN(subtotal)) {
-        alert('El subtotal no es un número válido');
-        return;
-    }
-    window.location.href = `Pago.html?total=${subtotal}`;
+    //if (isNaN(subtotal)) {
+      //  alert('El subtotal no es un número válido');
+        //return;
+    //}
+    window.location.href = `Pago.html?total=${subtotal.toLocaleString()}`;
 }
