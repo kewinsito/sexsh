@@ -308,11 +308,12 @@ transferForm.addEventListener('submit', async (event) => {
         const Telefono = document.getElementById('Telefono').value;
         const postalCode = document.getElementById('postalCode').value;
         let formaDentrega = true;
+        let pedidoNew=true;
 
         if (NameClient === "" || address === "" || Telefono === "" || postalCode === "") {
             alert("Todos los campos deben estar llenos.");
         } else {
-            db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, formaDentrega,numeroAleatorio })
+            db.collection('Pedidos').add({ NameClient, address, Telefono, postalCode, total, formaDentrega,pedidoNew,numeroAleatorio })
                 .then(async (docRef) => {
                     alert("Pedido guardado con éxito");
 
@@ -353,7 +354,8 @@ transferForm.addEventListener('submit', async (event) => {
         }
     } else {
         let formaDentrega = false;
-        db.collection('Pedidos').add({ total, formaDentrega, numeroAleatorio })
+        let pedidoNew=true;
+        db.collection('Pedidos').add({ total, formaDentrega, numeroAleatorio,pedidoNew })
             .then(async (docRef) => {
                 alert("Pedido guardado con éxito");
 

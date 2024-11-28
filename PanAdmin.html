@@ -62,4 +62,42 @@
 <script src="./firebase/firebase.js"></script>
 <script src="./firebase/auth.js"></script>
 <script src="./scriptsesion.js"></script>
+<audio id="alertSound" src="./SD_ALERT_18.mp3"></audio>
+
+<script>
+
+    // Referencia a la colección de pedidos
+    const pedidosRef = db.collection('Pedidos');
+
+    // Listener en tiempo real para detectar nuevos pedidos
+    pedidosRef.where("pedidoNew", "==", true).onSnapshot((snapshot) => {
+        snapshot.forEach((doc) => {
+            const pedido = doc.data();
+            if (pedido.pedidoNew) {
+                 // Obtener el audio
+            const sound = document.getElementById('alertSound');
+
+                // Suena la alerta (puedes personalizar el sonido o usar alert)
+                sound.play();
+
+            // Detener el audio después de 2 segundos
+            setTimeout(() => {
+                sound.pause();
+                sound.currentTime = 0; // Reiniciar el audio
+            }, 1000);
+                alert("¡Nuevo pedido recibido!");
+
+                // Actualiza el campo 'pedidoNew' a false para evitar futuras alertas
+                pedidosRef.doc(doc.id).update({ pedidoNew: false })
+                    .then(() => {
+                        console.log(`Pedido ${doc.id} actualizado a pedidoNew: false`);
+                    })
+                    .catch((error) => {
+                        console.error(`Error al actualizar el pedido: ${error}`);
+                    });
+            }
+        });
+    });
+</script>
+
 </html>
