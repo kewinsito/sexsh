@@ -70,6 +70,7 @@
                         <li>Cargando productos...</li>
                     </ul>
                     <button class="confirmar-btn" data-id="${doc.id}">Confirmar</button>
+                    <button class="eliminar-btn" data-id="${doc.id}">Eliminar</button>
                 `;
 
                 taskList.appendChild(li);
@@ -118,10 +119,41 @@ for (const productoDoc of productosSnapshot.docs) {
                 // Evento para el botón confirmar
                 const confirmarBtn = li.querySelector('.confirmar-btn');
                 confirmarBtn.addEventListener('click', () => confirmarPedido(doc.id));
+                const EliminarBtn = li.querySelector('.eliminar-btn');
+                EliminarBtn.addEventListener('click', () => eliminarPedido(doc.id));
             });
         });
     });
 }
+function eliminarPedido(pedidoID) {
+    const pedidoRef = db.collection('Pedidos').doc(pedidoID);
+
+    // Obtener la subcolección 'productos'
+    pedidoRef.collection('productos').get()
+        .then(snapshot => {
+            const deletePromises = [];
+
+            // Eliminar todos los documentos de la subcolección
+            snapshot.forEach(doc => {
+                deletePromises.push(pedidoRef.collection('productos').doc(doc.id).delete());
+            });
+
+            // Esperar a que se eliminen los documentos de la subcolección
+            return Promise.all(deletePromises);
+        })
+        .then(() => {
+            // Una vez eliminada la subcolección, eliminar el documento principal
+            return pedidoRef.delete();
+        })
+        .then(() => {
+            alert('Pedido eliminado correctamente');
+            mostrarTodo(); // Recargar la lista de pedidos
+        })
+        .catch(error => {
+            alert("Error al eliminar el pedido:", error);
+        });
+}
+
 
 function confirmarPedido(pedidoId) {
     if (confirm(`¿Estás seguro de confirmar el pedido ${pedidoId}?`)) {
@@ -166,7 +198,7 @@ function confirmarPedido(pedidoId) {
             })
             .then(() => {
                 // Eliminar el pedido y su subcolección
-                return pedidoRef.delete();
+                eliminarPedido(pedidoId);
             })
             .then(() => {
                 alert(`Pedido ${pedidoId} confirmado y eliminado. Cantidades actualizadas.`);
