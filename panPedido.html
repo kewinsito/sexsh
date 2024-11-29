@@ -115,47 +115,82 @@ for (const productoDoc of productosSnapshot.docs) {
     }
 }
 
-
+                let borrar = false;
+                let confirmar = true;
                 // Evento para el botón confirmar
                 const confirmarBtn = li.querySelector('.confirmar-btn');
-                confirmarBtn.addEventListener('click', () => confirmarPedido(doc.id));
+                confirmarBtn.addEventListener('click', () => confirmarPedido(doc.id,confirmar));
                 const EliminarBtn = li.querySelector('.eliminar-btn');
-                EliminarBtn.addEventListener('click', () => eliminarPedido(doc.id));
+                EliminarBtn.addEventListener('click', () => eliminarPedido(doc.id,borrar));
             });
         });
     });
 }
-function eliminarPedido(pedidoID) {
-    const pedidoRef = db.collection('Pedidos').doc(pedidoID);
 
-    // Obtener la subcolección 'productos'
+function eliminarPedido(pedidoID,borraroconf) {
+    if (borraroconf){
+        const pedidoRef = db.collection('Pedidos').doc(pedidoID);
+
+// Obtener la subcolección 'productos'
     pedidoRef.collection('productos').get()
-        .then(snapshot => {
-            const deletePromises = [];
+    .then(snapshot => {
+        const deletePromises = [];
 
-            // Eliminar todos los documentos de la subcolección
-            snapshot.forEach(doc => {
-                deletePromises.push(pedidoRef.collection('productos').doc(doc.id).delete());
-            });
-
-            // Esperar a que se eliminen los documentos de la subcolección
-            return Promise.all(deletePromises);
-        })
-        .then(() => {
-            // Una vez eliminada la subcolección, eliminar el documento principal
-            return pedidoRef.delete();
-        })
-        .then(() => {
-            //alert('Pedido eliminado correctamente');
-            mostrarTodo(); // Recargar la lista de pedidos
-        })
-        .catch(error => {
-            alert("Error al eliminar el pedido:", error);
+        // Eliminar todos los documentos de la subcolección
+        snapshot.forEach(doc => {
+            deletePromises.push(pedidoRef.collection('productos').doc(doc.id).delete());
         });
+
+        // Esperar a que se eliminen los documentos de la subcolección
+        return Promise.all(deletePromises);
+    })
+    .then(() => {
+        // Una vez eliminada la subcolección, eliminar el documento principal
+        return pedidoRef.delete();
+    })
+    .then(() => {
+        //alert('Pedido eliminado correctamente');
+        mostrarTodo(); // Recargar la lista de pedidos
+    })
+    .catch(error => {
+        alert("Error al eliminar el pedido:", error);
+    });
+    }else{
+        
+       if(confirm('¿estas seguro de eliminar el pedido?' )){
+        const pedidoRef = db.collection('Pedidos').doc(pedidoID);
+
+// Obtener la subcolección 'productos'
+pedidoRef.collection('productos').get()
+    .then(snapshot => {
+        const deletePromises = [];
+
+        // Eliminar todos los documentos de la subcolección
+        snapshot.forEach(doc => {
+            deletePromises.push(pedidoRef.collection('productos').doc(doc.id).delete());
+        });
+
+        // Esperar a que se eliminen los documentos de la subcolección
+        return Promise.all(deletePromises);
+    })
+    .then(() => {
+        // Una vez eliminada la subcolección, eliminar el documento principal
+        return pedidoRef.delete();
+    })
+    .then(() => {
+        alert('Pedido eliminado correctamente');
+        mostrarTodo(); // Recargar la lista de pedidos
+    })
+    .catch(error => {
+        alert("Error al eliminar el pedido:", error);
+    });
+       }
+    }
+    
 }
 
 
-function confirmarPedido(pedidoId) {
+function confirmarPedido(pedidoId,borraroconf) {
     if (confirm(`¿Estás seguro de confirmar el pedido ${pedidoId}?`)) {
         const pedidoRef = db.collection('Pedidos').doc(pedidoId);
 
@@ -196,7 +231,8 @@ function confirmarPedido(pedidoId) {
                 return Promise.all(updatePromises);// Esperar a que todas las actualizaciones de productos se completen
             })
             .then(() => {   
-                eliminarPedido(pedidoId);// Eliminar el pedido y su subcolección
+                
+                eliminarPedido(pedidoId,borraroconf);// Eliminar el pedido y su subcolección
             })
             .then(() => {
                 alert(`Pedido ${pedidoId} confirmado y eliminado. Cantidades actualizadas.`);
