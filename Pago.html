@@ -328,7 +328,7 @@ transferForm.addEventListener('submit', async (event) => {
 
                     await batch.commit();
 
-                    alert("Productos copiados con éxito");
+                   // alert("Productos copiados con éxito");
 
                     const deleteBatch = db.batch();
                     productosSnapshot.forEach(productoDoc => {
@@ -339,7 +339,7 @@ transferForm.addEventListener('submit', async (event) => {
                     return deleteBatch.commit();
                 })
                 .then(() => {
-                    alert("Carrito eliminado con éxito");
+                    //alert("Carrito eliminado con éxito");
                     
                     // Limpiar los campos de entrada
                     document.getElementById('NameClient').value = '';
@@ -370,7 +370,7 @@ transferForm.addEventListener('submit', async (event) => {
 
                 await batch.commit();
 
-                alert("Productos copiados con éxito");
+                //alert("Productos copiados con éxito");
 
                 const deleteBatch = db.batch();
                 productosSnapshot.forEach(productoDoc => {
@@ -381,7 +381,7 @@ transferForm.addEventListener('submit', async (event) => {
                 return deleteBatch.commit();
             })
             .then(() => {
-                alert("Carrito eliminado con éxito");
+                //alert("Carrito eliminado con éxito");
 
                 // Redirigir a index.html
                 window.location.href = 'index.html';

@@ -146,7 +146,7 @@ function eliminarPedido(pedidoID) {
             return pedidoRef.delete();
         })
         .then(() => {
-            alert('Pedido eliminado correctamente');
+            //alert('Pedido eliminado correctamente');
             mostrarTodo(); // Recargar la lista de pedidos
         })
         .catch(error => {
@@ -193,12 +193,10 @@ function confirmarPedido(pedidoId) {
                     });
                 });
 
-                // Esperar a que todas las actualizaciones de productos se completen
-                return Promise.all(updatePromises);
+                return Promise.all(updatePromises);// Esperar a que todas las actualizaciones de productos se completen
             })
-            .then(() => {
-                // Eliminar el pedido y su subcolección
-                eliminarPedido(pedidoId);
+            .then(() => {   
+                eliminarPedido(pedidoId);// Eliminar el pedido y su subcolección
             })
             .then(() => {
                 alert(`Pedido ${pedidoId} confirmado y eliminado. Cantidades actualizadas.`);
@@ -210,9 +208,6 @@ function confirmarPedido(pedidoId) {
             });
     }
 }
-
-
-
     </script>
 </body>
 </html>
