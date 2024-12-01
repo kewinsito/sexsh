@@ -511,7 +511,7 @@ function cargarColeccion(coleccion) {
         });
 }
 
-// Función para agregar un producto a la lista
+// Función para Modificar o Boorrar algun producto a la listaaaaaaaaaaaaaaaaaaaa
 function agregarProductoALista(doc) {
     const li = document.createElement('li');
     li.classList.add('product-item');
@@ -529,5 +529,5 @@ function agregarProductoALista(doc) {
 
 // Cargar una colección por defecto al iniciar la página
 document.addEventListener('DOMContentLoaded', function () {
-    cargarColeccion('Novedades');
+    cargarColeccion('Toys'); //estoooooooooooooooooooooooooooooooooooooooooooooooooooo
 });
