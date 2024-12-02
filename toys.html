@@ -10,7 +10,7 @@
 
 <body>
     <script>
-        document.addEventListener('DOMContentLoaded', function() { 
+        document.addEventListener('firebaseReady', function () {
           function iniciarPagina() { 
             const taskList = document.getElementById('Correo');
             taskList.innerHTML = '';
@@ -55,7 +55,7 @@
         });
         </script>
          <script>
-            document.addEventListener('DOMContentLoaded', function () { 
+            document.addEventListener('firebaseReady', function () { 
               function mostrarProducto(docId) {
                 const container = document.getElementById(docId);
                 container.innerHTML = '';
