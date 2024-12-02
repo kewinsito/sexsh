@@ -63,7 +63,7 @@
 <audio id="alertSound" src="./SD_ALERT_18.mp3"></audio>
 
 <script>
-
+document.addEventListener('firebaseReady', function () {
     // Referencia a la colección de pedidos
     const pedidosRef = db.collection('Pedidos');
 
@@ -96,6 +96,7 @@
             }
         });
     });
+});
 </script>
 
 </html>
