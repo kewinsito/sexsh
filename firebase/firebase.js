@@ -499,6 +499,7 @@ const taskList = document.getElementById('task-list');
 
 // Función para cargar y mostrar productos de una colección específica
 function cargarColeccion(coleccion) {
+    document.addEventListener('firebaseReady', function () {
     taskList.innerHTML = ''; // Limpiar la lista antes de agregar los productos
 
     // Obtener los productos desde la colección seleccionada
@@ -519,6 +520,7 @@ function cargarColeccion(coleccion) {
             console.error('Error al cargar la colección:', error);
             alert('Ocurrió un error al cargar los productos.');
         });
+    });
 }
 
 // Función para agregar un producto a la lista
