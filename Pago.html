@@ -126,7 +126,7 @@
     <script src="./firebase/firebase.js"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('firebaseReady', function () {
             // Función para obtener parámetros de la URL
             function getQueryParam(param) {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -220,7 +220,7 @@
 
 <script>
     let UID;
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('firebaseReady', function () {
             // Inicializar Firebase desde firebase.js
             // Asegúrate de tener db y auth configurados en firebase.js
             function iniciarPaginaauth(user) {

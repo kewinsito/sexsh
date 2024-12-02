@@ -1,23 +1,32 @@
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCHMEaDhtxixycfamuEMC64t6Uy1GA5xoo",
-  authDomain: "sexshopweb-c934a.firebaseapp.com",
-  projectId: "sexshopweb-c934a",
-  storageBucket: "sexshopweb-c934a.firebasestorage.app",
-  messagingSenderId: "604810062898",
-  appId: "1:604810062898:web:f0f41ce212544c5da3a02b"
-};
+let auth;
+let db;
 
-// Inicialización de Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Inicializar Firebase con configuración externa
+fetch('/firebase/config.json')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Error al cargar las configuraciones');
+    }
+    return response.json();
+  })
+  .then((config) => {
+    firebase.initializeApp(config);
+    auth = firebase.auth();
+    db = firebase.firestore();
+    console.log('Firebase inicializado correctamente');
+    // Disparar un evento para notificar que Firebase está listo
+    document.dispatchEvent(new Event('firebaseReady'));
+  })
+  .catch((error) => {
+    console.error('Error al inicializar Firebase:', error);
+  });
 
 const loginForm = document.getElementById('signin-form');
 const productForm = document.getElementById('product-form');
 const pushMessage = document.getElementById('pushMessage');
 
 
+    
 //registro
 function register() {
   const email = document.getElementById('email').value;
@@ -429,7 +438,7 @@ function añadirCarritoSS(productoId) {
         console.error("Error al consultar el inventario: ", error);
     });
 }
-
+document.addEventListener('firebaseReady', function () {
 // Configurar la visibilidad de los enlaces al iniciar o cerrar sesión
 firebase.auth().onAuthStateChanged(user => {
     const linkIniciarSesion = document.getElementById('linkIniciarSesion');
@@ -444,6 +453,7 @@ firebase.auth().onAuthStateChanged(user => {
         linkIniciarSesion.style.display = 'inline';
         linkCerrarSesion.style.display = 'none';
     }
+});
 });
 
 // Función para cerrar sesión
@@ -511,7 +521,7 @@ function cargarColeccion(coleccion) {
         });
 }
 
-// Función para Modificar o Boorrar algun producto a la listaaaaaaaaaaaaaaaaaaaa
+// Función para agregar un producto a la lista
 function agregarProductoALista(doc) {
     const li = document.createElement('li');
     li.classList.add('product-item');
@@ -528,6 +538,6 @@ function agregarProductoALista(doc) {
 }
 
 // Cargar una colección por defecto al iniciar la página
-document.addEventListener('DOMContentLoaded', function () {
-    cargarColeccion('Toys'); //estoooooooooooooooooooooooooooooooooooooooooooooooooooo
+document.addEventListener('firebaseReady', function () {
+    cargarColeccion('Novedades');
 });

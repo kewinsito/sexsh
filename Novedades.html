@@ -9,7 +9,7 @@
 </head>
 <body>
   <script>
-    document.addEventListener('DOMContentLoaded', function() { 
+     document.addEventListener('firebaseReady', function () { 
        function iniciarPaginaauth() { 
          const taskLis = document.getElementById('Correo');
          taskLis.innerHTML = '';
@@ -39,7 +39,7 @@
     
     <script src="script.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
+       document.addEventListener('firebaseReady', function () {
           function iniciarPagina() {
               const taskList = document.getElementById('Novedades');
               taskList.innerHTML = '';

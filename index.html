@@ -5,25 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="consolador.jfif" type="image/icon type">
   <title>Sex Shop Seduction</title>
+  <script src="script.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="./firebase/firebase.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() { 
-      function iniciarPagina() { 
+  
+  <script>
+    document.addEventListener('firebaseReady', function () {
+      console.log('Firebase listo, inicializando la página...');
+
+      function iniciarPagina() {
         const taskList = document.getElementById('Correo');
         taskList.innerHTML = '';
-        
+        console.log("Usuario actual:", auth.currentUser);
+
         // Verificar si hay un usuario autenticado
         const user = auth.currentUser;
         let userEmail = '';
-        
         if (user) {
           // Si hay un usuario autenticado, obtener el correo antes del @
-          const email = user.email;
-          userEmail = email.split('@')[0];
-        } 
-        
+          userEmail = user.email.split('@')[0];
+        }
+
         // Mostrar el correo en el elemento
         const userEmailElement = document.getElementById('Correo');
         userEmailElement.textContent = userEmail;
@@ -31,33 +38,28 @@
         // Verificar si el usuario es administrador
         if (user) {
           const userId = user.uid;
-          const userRef = firebase.firestore().collection('Usuarios').doc(userId);
-          
+          const userRef = db.collection('Usuarios').doc(userId);
+
           userRef.get().then((doc) => {
             if (doc.exists && doc.data().admin === true) {
               // Mostrar el botón de administrador si es admin
               const adminButton = document.getElementById('adminButton');
               adminButton.style.display = 'inline-block';
             } else {
-              // Si no es admin, asegurarse de que el botón esté oculto
-              const adminButton = document.getElementById('adminButton');
-              adminButton.style.display = 'none';
+              // Asegurarse de que el botón esté oculto si no es admin
+              document.getElementById('adminButton').style.display = 'none';
             }
           });
         }
       }
-      
+
       // Escuchar cambios de autenticación
-      auth.onAuthStateChanged((user) => {
+      auth.onAuthStateChanged(() => {
         iniciarPagina();
       });
     });
-    </script>
-    <script src="script.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="./firebase/firebase.js"></script>
+  </script>
+   
   <!-- Header con imagen como logo y búsqueda -->
   <div class="logo">
     <a href="index.html">
@@ -65,7 +67,7 @@
     </a>
 </div>
   <header>
-      <h1 id="Correo"></h1>
+      <h1 id="Correo">no hay correo</h1>
       <div class="icons">
         <a href="toys.html">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -177,7 +179,7 @@
     </div>
       <p class="copyright">© 2024, <a href="https://www.facebook.com/p/SexShop-Seduction-100064192802511/">Sex Shop Seduction</a> by <a href="https://www.facebook.com/abigail.aguirre.98837399">@Abigail Aguirre</a></p>
   </footer>
-
+ 
 </body>
 
 </html>

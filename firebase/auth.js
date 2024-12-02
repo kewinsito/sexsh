@@ -1,5 +1,6 @@
 
-  auth.onAuthStateChanged(user => {
+document.addEventListener('firebaseReady', function () {
+ auth.onAuthStateChanged(user => {
     if (!user && window.location.pathname !== '/index.html') {
         // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
         window.location.href = 'index.html';
@@ -25,4 +26,5 @@
                 window.location.href = 'index.html';
             });
     }
+});
 });
