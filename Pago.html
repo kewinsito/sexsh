@@ -249,27 +249,38 @@
     let numeroAleatorio;
 
    // Función para generar y verificar un número aleatorio único
-async function generarNumeroAleatorio() {
+   async function generarNumeroAleatorio() {
     let numeroUnicoEncontrado = false;
+    let numeroAleatorio; // Declare this variable here to use it outside the loop
+
+    // Wait until Firebase is ready before proceeding
+    await new Promise((resolve) => {
+        document.addEventListener('firebaseReady', resolve, { once: true });
+    });
 
     while (!numeroUnicoEncontrado) {
-        // Generar un número aleatorio entre 0 y 100000
+        // Generate a random number between 0 and 100000
         numeroAleatorio = Math.floor(Math.random() * 100001);
 
-        // Verificar si el número existe en la colección 'Pedidos'
-        const snapshot = await db.collection('Pedidos').where('numeroAleatorio', '==', numeroAleatorio).get();
+        try {
+            // Check if the number exists in the 'Pedidos' collection
+            const snapshot = await db.collection('Pedidos').where('numeroAleatorio', '==', numeroAleatorio).get();
 
-        // Si no se encuentra el número, es único
-        if (snapshot.empty) {
-            numeroUnicoEncontrado = true;
+            // If the number is not found, it's unique
+            if (snapshot.empty) {
+                numeroUnicoEncontrado = true;
+            }
+        } catch (error) {
+            console.error("Error checking for unique number:", error);
         }
     }
 
-    // Mostrar el número generado en la página
+    // Display the generated number on the page
     document.getElementById('numero').textContent = `Número de Referencia generado: ${numeroAleatorio}`;
-    
-    return numeroAleatorio; // Devolver el número único para usarlo posteriormente
+
+    return numeroAleatorio; // Return the unique number for later use
 }
+
 
 // Generar el número aleatorio al cargar la página
 window.onload = async () => {
