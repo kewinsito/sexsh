@@ -2,7 +2,7 @@ let auth;
 let db;
 
 // Inicializar Firebase con configuración externa
-fetch('/firebase/config.json')
+fetch('./firebase/config.json')
   .then((response) => {
     if (!response.ok) {
       throw new Error('Error al cargar las configuraciones');
