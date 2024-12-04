@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "sex-shop-seduction-e",
+    "public": "./",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
